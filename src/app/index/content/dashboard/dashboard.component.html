@@ -1,0 +1,213 @@
+<app-common [showLoader]="showLoader"></app-common>
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header-title">
+                        <h4 class="pull-left page-title">Dashboard</h4>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-lg-9 col-xlg-9 col-md-9">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading cust-head">
+                                <!-- <h4>Yearly <small>Notifications</small></h4> -->
+                                <h4>  Overall Notification Status (Yearly) </h4>
+                            </div>
+                            <div class="panel-body">
+                                <app-linechart></app-linechart>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xlg-3 col-md-3">
+                        <div class="">
+                            <div class="panel panel-primary" style="margin-bottom: 20px;">
+                                <div class="panel-body progressb">
+                                    <div class="progress" id="completed" data-percentage="0">
+                                        <span class="progress-left">
+                                            <span class="progress-bar success-prograss"></span>
+                                        </span>
+                                        <span class="progress-right">
+                                            <span class="progress-bar success-prograss"></span>
+                                        </span>
+                                        <div class="progress-value">
+                                            <div>
+                                                {{completedValue}}<br>
+                                                <span>Completed</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary" style="margin-bottom: 20px;">
+                                <div class="panel-body progressb">
+                                    <div class="progress" id="open" data-percentage="0">
+                                        <span class="progress-left">
+                                            <span class="progress-bar new-prograss"></span>
+                                        </span>
+                                        <span class="progress-right">
+                                            <span class="progress-bar new-prograss"></span>
+                                        </span>
+                                        <div class="progress-value">
+                                            <div>
+                                                {{openValue}}<br>
+                                                <span>Open</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary" style="margin-bottom: 20px;">
+                                <div class="panel-body progressb">
+                                    <div class="progress" id="error" data-percentage="0">
+                                        <span class="progress-left">
+                                            <span class="progress-bar error-prograss"></span>
+                                        </span>
+                                        <span class="progress-right">
+                                            <span class="progress-bar error-prograss"></span>
+                                        </span>
+                                        <div class="progress-value">
+                                            <div>
+                                                {{errorValue}}<br>
+                                                <span>Error</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-lg-5 col-xlg-5 col-md-5">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading cust-head">
+                                    <h4>Notification Channel (Monthly)</h4>
+                                </div>
+                                <div class="panel-body">
+                                    
+                                    <app-barchart></app-barchart>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xlg-4 col-md-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading cust-head">
+                                    <h4>Notification Status (Weekly)</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <app-piechart></app-piechart>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-xlg-3 col-md-3">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading cust-head">
+                                    <h4>Push Notifications (Daily)</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <app-radarchart></app-radarchart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                    <div class="row">                            
+                                <div class="col-md-3 mb2">
+                                  <div class="inner-addon right-addon mt5"> 
+                                    <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Message..." />
+                                    <a  class="list-search"><i class="fa fa-search"></i></a>
+                                  </div>
+                                </div>                                
+                                </div>
+
+                                <div class="mat-elevation-z8 example-container table-responsive mt15">
+                                    <mat-table [dataSource]="dataSource" matSort matSortActive='messageId' matSortDirection='desc' matSortDisableClear>
+                                        <!-- ID Column -->
+                                        <ng-container matColumnDef="messageId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Message Id
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"> {{row.messageId}} </mat-cell>
+                                        </ng-container>
+                                        <!-- Message Content Column -->
+                                        <ng-container matColumnDef="message">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Message Content
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"> {{row.message}} </mat-cell>
+                                        </ng-container>
+                                        <!-- Message Status Column -->
+                                        <ng-container matColumnDef="messageStatus">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Message Status
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row">
+                                                <span *ngIf="'Open' == row.messageStatus" class="badge badge-open">
+                                                    {{row.messageStatus}}</span>
+                                                <span *ngIf="'Queued' == row.messageStatus" class="badge badge-open">
+                                                    {{row.messageStatus}}</span>
+                                                <span *ngIf="'Closed' == row.messageStatus" class="badge badge-open">
+                                                    {{row.messageStatus}}</span>
+                                                <span *ngIf="'Completed' == row.messageStatus"
+                                                    class="badge badge-completed"> {{row.messageStatus}}</span>
+                                                <span *ngIf="'Change' == row.messageStatus"
+                                                    class="badge badge-completed"> {{row.messageStatus}}</span>
+                                                <span *ngIf="'Failure' == row.messageStatus" class="badge badge-error">
+                                                    {{row.messageStatus}}</span>
+                                                <span *ngIf="'Error' == row.messageStatus" class="badge badge-error">
+                                                    {{row.messageStatus}}</span>
+                                                <span *ngIf="'Acknowledged' == row.messageStatus"
+                                                    class="badge badge-completed"> {{row.messageStatus}}</span>
+                                                <span *ngIf="'NotAcknowledged' == row.messageStatus"
+                                                    class="badge badge-error"> {{row.messageStatus}}</span>
+                                                <span *ngIf="'OffDuty' == row.messageStatus"
+                                                    class="badge badge-progress">
+                                                    Off-Duty</span>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <!-- Configuration Name Column -->
+                                        <ng-container matColumnDef="emailId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Email Id / SMS
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row">
+                                                <span *ngIf="row.type == 'Email'"> {{row.emailId}}</span>
+                                                <span *ngIf="row.type == 'SMS'"> {{row.mobileNumber}}</span>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <!-- Configuration Name Column -->
+                                        <ng-container matColumnDef="createdByName">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Owner
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"> {{row.createdByName}} </mat-cell>
+                                        </ng-container>
+
+
+                                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                        </mat-row>
+                                    </mat-table>
+                                    <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                  <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                                </div>
+
+                                <div class="col-lg-12 col-xlg-12 col-md-12">
+                                    <div class="fresh-table full-color-orange table-responsive ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,155 @@
+<app-common [showLoader]="showLoader">
+</app-common>
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header-title">
+                        <h4 class="pull-left page-title">{{buttonName}} Department</h4>
+                        <!--<ol class="breadcrumb pull-right">
+                            <li><a href="pages_index.html">Dashboard</a></li>
+                            <li class="active">Users</li>
+                            <li class="active">Create New Customer</li>
+                        </ol>-->
+                        <div class="clearfix"> <a routerLink="/index/departments" data-toggle="tooltip" title=" Manage Department" class="pull-right icon-create ng-star-inserted">
+                            <i class="ti ti-layout-media-left	createnew"></i>        
+                        </a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="col-lg-12 col-xlg-12 col-md-12">
+                                <!-- <div class="row ">
+                                    <a routerLink="/index/departments" class="btn btn-success pull-right">
+                                    Manage Department
+                                    </a>
+                                </div> -->
+                                <form class="form-horizontal" [formGroup]="departmentForm">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group required">
+                                                <label class="control-label">
+                                                    Department Name
+                                                </label>
+                                                <div class="input-group"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.departmentName.errors }">
+                                                    <span class="input-group-addon"><i class="mdi mdi-account"
+                                                            aria-hidden="true"></i></span>
+                                                    <input type="text" formControlName="departmentName"
+                                                        placeholder="Department Name"
+                                                        class="form-control form-control-line">
+                                                </div>
+                                                <div *ngIf="submitted && f.departmentName.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="f.departmentName.errors.required">Department Name
+                                                        is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label class="control-label">
+                                                    Status
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class=" ti ti-bar-chart"
+                                                            aria-hidden="true"></i></span>
+                                                    <select class="form-control form-control-line"
+                                                        formControlName="active">
+                                                        <option value="true">Active</option>
+                                                        <option value="false">In Active</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group required">
+                                                <label class="control-label">
+                                                    Supervisor
+                                                </label>
+                                                <div class="input-group"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.supervisorId.errors }">
+                                                    <span class="input-group-addon"><i class=" mdi mdi-account-location"
+                                                            aria-hidden="true"></i></span>
+                                                    <select class="form-control form-control-line"
+                                                        formControlName="supervisorId">
+                                                        <option value="" disabled>-Select-</option>
+                                                        <option *ngFor="let user of supervisors;"
+                                                            value="{{user.userId}}">
+                                                            {{user.userName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div *ngIf="submitted && f.supervisorId.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="f.supervisorId.errors.required">Supervisor is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group required">
+                                               <label class="control-label ">
+                                                  Users
+                                               </label>
+                                               <div class="input-group">
+                                                  <span class="input-group-addon"><i class="ion ion-clipboard"
+                                                        aria-hidden="true"></i></span>
+                                                  <div class="form-group form-control"
+                                                     style="height: 100px; overflow:auto; padding:0;">
+                                                     <li class="form-control custflag" *ngFor="let item of this.f.users.value">{{item.userName}}
+                                                        <a (click)="removeUser(item.userId)"><span class="ion ion-close-round cut_close"></span></a>
+                                                    </li>
+                                                  </div>
+                                                  <span class="input-group-addon naviagte_span"><i (click)="openUserPopUp()"
+                                                        class="fa fa-external-link naviagte_arrow" aria-hidden="true"></i></span>
+                                               </div>
+                                               <div *ngIf="submitted && f.users.errors"
+                                               class="invalid-feedback">
+                                               <div *ngIf="f.users.errors.required">Please add Users to the department
+                                               </div>
+                                           </div>
+                                            </div>
+                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label class="control-label">
+                                                    Comments
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="ti ti-list"
+                                                            aria-hidden="true"></i></span>
+                                                    <textarea class="form-control" id="" rows="3"
+                                                        formControlName="comments"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>                                     
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-sm-12">
+                                            <span class="manadory text-left "><small
+                                                    style="color:red;font-size:15px; ">*</small> - Required field
+                                            </span>
+                                        </div>
+                                        <div class="text-right col-sm-12">
+                                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                (click)="onSubmit();">{{buttonName}}</button>&nbsp;
+                                            <button type="button" class="btn btn-default waves-effect waves-light"
+                                                (click)="reset();">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
