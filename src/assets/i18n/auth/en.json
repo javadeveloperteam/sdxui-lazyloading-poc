@@ -1,0 +1,17 @@
+{
+"wait.msg" : "Please wait...",
+"password.reset.mail.sent.successfully" : "Password recovery instruction has been sent to your email.",
+"password.invalid.otp" : "Invalid OTP",
+"password.strength.failure" : "Password should contain one upper case, one lower case, one digit, one special character",
+"password.cannot.be.same.as.old.password" : "Password cannot be same as old password",
+"dashboard" : "Dashboard",
+"my.profile" : "My Profile",
+"action" : "Action",
+"user" : "User",
+"conf" : "Configuration",
+"group" : "Group",
+"msg" : "Message",
+"customer" : "Customer",
+"search.key" : "Search...",
+"notifications" : "Notifications"
+}

@@ -1,0 +1,17 @@
+{
+"wait.msg" : "காத்திருக்கவும்",
+"password.reset.mail.sent.successfully" : "Password recovery instruction has been sent to your email.",
+"password.invalid.otp" : "Invalid OTP",
+"password.strength.failure" : "Password should contain one upper case, one lower case, one digit, one special character",
+"password.cannot.be.same.as.old.password" : "கடவுச்சொல் பழைய கடவுச்சொல்லாக இருக்க முடியாது",
+"dashboard" : "டாஷ்போர்டு",
+"my.profile" : "என் சுயவிவரம்",
+"action" : "செயல்",
+"user" : "பயனர்",
+"conf" : "கட்டமைப்பு",
+"group" : "குழு",
+"msg" : "செய்தி",
+"customer" : "வாடிக்கையாளர்",
+"search.key" : "தேடல்...",
+"notifications" : "அறிவிப்பு"
+}

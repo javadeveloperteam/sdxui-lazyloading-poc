@@ -1,0 +1,17 @@
+{
+"wait.msg" : "S'il vous plaît, attendez...",
+"password.reset.mail.sent.successfully" : "Une instruction de récupération de mot de passe a été envoyée à votre adresse email.",
+"password.invalid.otp" : "OTP invalide",
+"password.strength.failure" : "Le mot de passe doit contenir une majuscule, une minuscule, un chiffre, un caractère spécial",
+"password.cannot.be.same.as.old.password" : "Le mot de passe ne peut pas être identique à l'ancien mot de passe",
+"dashboard" : "Tableau de bord",
+"my.profile" : "Mon profil",
+"action" : "Action",
+"user" : "Utilisateur",
+"conf" : "Configuration",
+"group" : "Groupe",
+"msg" : "Message",
+"customer" : "Client",
+"search.key" : "Chercher...",
+"notifications" : "Notification"
+}
