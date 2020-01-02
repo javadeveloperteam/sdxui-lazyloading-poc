@@ -1,0 +1,96 @@
+<app-common [showLoader]="showLoader">
+</app-common>
+<div class="content-page">
+        <div class="content">
+           <div class="container">
+            <div class="row page-header-title">
+                <div class="col-md-12">
+                    <div class="col-md-9 col-xs-4">
+                        <h4 class="pull-left page-title">Event</h4>
+                    </div>
+                    <div class="col-md-3 col-xs-8 mb2  pull-right">
+                        <div class="inner-addon right-addon mt5">
+                                <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Event Name..." />
+                            <a class="list-search"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="panel panel-primary">
+                          <div class="panel-body">                                                
+                               <!-- <div class="row">                            
+                                <div class="col-md-3 mb2">
+                                  <div class="inner-addon right-addon mt10 mb10"> 
+                                    <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Event Name..." />
+                                    <a class="list-search"><i class="fa fa-search"></i></a>
+                                  </div>
+                                </div>							
+                            </div> -->
+   
+                              <div class="mat-elevation-z8 example-container table-responsive">
+                                  <mat-table [dataSource]="dataSource" matSort matSortActive='eventId' matSortDirection='desc' matSortDisableClear>
+                                      <!-- ID Column -->
+                                      <!-- <ng-container matColumnDef="eventId">
+                                          <mat-header-cell *matHeaderCellDef mat-sort-header>Event Id
+                                          </mat-header-cell>
+                                          <mat-cell *matCellDef="let row"> {{row.eventId}} </mat-cell>
+                                      </ng-container> -->
+                                      <!-- Application Name Column -->
+                                      <ng-container matColumnDef="eventName">
+                                          <mat-header-cell *matHeaderCellDef mat-sort-header> Event Name
+                                          </mat-header-cell>
+                                          <mat-cell *matCellDef="let row" class="pointer" (click)="editEvent(row.applicationId,row.eventId)"> 
+                                            <a>{{row.eventName}} </a></mat-cell>
+                                       </ng-container>
+                                       <ng-container matColumnDef="applicationName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Application Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.applicationName}} </mat-cell>
+                                    </ng-container>
+                                      <!-- Created By Column -->
+                                      <ng-container matColumnDef="eventType">
+                                          <mat-header-cell *matHeaderCellDef mat-sort-header> Event Type
+                                          </mat-header-cell>
+                                          <mat-cell *matCellDef="let row"> {{row.eventType}} </mat-cell>
+                                      </ng-container>
+                                      
+                                        <!-- Message Column -->
+                                        <!-- <ng-container matColumnDef="createdByName">
+                                          <mat-header-cell *matHeaderCellDef mat-sort-header> Created By
+                                          </mat-header-cell>
+                                          <mat-cell *matCellDef="let row"> {{row.createdByName}} </mat-cell>
+                                      </ng-container> -->
+                                      <ng-container matColumnDef="Action">
+                                          <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                          <mat-cell *matCellDef="let row">
+                                          <!--    <i class="ti ti-pencil-alt edit-blue"
+                                                title="Edit"
+                                                (click)="editEvent(row.applicationId, row.eventId)"></i>
+                                            &nbsp; -->
+                                              <i class="ti ti-trash del-red" title="Delete"
+                                                  (click)="deleteEventPopUp(row.applicationId,row.eventId, row.eventName)"></i>
+                                          </mat-cell>
+                                      </ng-container><!--  -->
+                                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                      <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                      </mat-row>
+                                  </mat-table>
+                                  <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                  <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>                        
+                                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+                              </div>
+   
+                              <div class="col-lg-12 col-xlg-12 col-md-12">
+                                  <div class="fresh-table full-color-orange table-responsive ">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+           </div>
+        </div>
+     </div>

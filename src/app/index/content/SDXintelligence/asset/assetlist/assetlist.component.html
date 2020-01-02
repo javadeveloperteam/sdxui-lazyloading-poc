@@ -1,0 +1,130 @@
+<app-common [showLoader]="showLoader"></app-common>
+<div class="content-page">
+   <div class="content">
+      <div class="container">
+         <div class="row page-header-title">
+            <div class="col-md-12">
+                <div class="col-md-8 col-xs-4">
+                    <h4 class="pull-left page-title">Asset</h4>
+                </div>
+                <div class="col-md-1 col-xs-1">
+                    <a class="icon-create pull-right" data-toggle="tooltip" (click)="addasset()" title="Create Asset"><i class="ti ti-layout-media-center createnew"></i></a>
+                </div>
+                <div class="col-md-3 col-xs-7 mb2  pull-right">
+                    <div class="inner-addon right-addon mt5">
+                     <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Asset Name..." />
+                     <a  class="list-search"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="panel panel-primary">
+                  <div class="panel-body">
+                     <!-- <div class="form-group has-feedback pull-left">
+                        <input type="text" class="form-control" placeholder="Enter Asset Name" id="inputSuccess2" />
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                     </div> -->
+                     <!-- <div class="row">                            
+                            <div class="col-md-3 mb2">
+                              <div class="inner-addon right-addon mt10"> 
+                                <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Asset Name..." />
+                                <a  class="list-search"><i class="fa fa-search"></i></a>
+                              </div>
+                            </div>
+                            <a  (click)="addasset()"  class="btn btn-success pull-right m-adjust mt15">
+                            Create Asset
+                            </a>
+                            </div> -->
+                     <div class="mat-elevation-z8 example-container table-responsive">
+                        <div class="fresh-table full-color-orange table-responsive ">
+                           <div class="example-container mat-elevation-z8">
+                              <mat-table [dataSource]="dataSource" matSort matSortActive='assetId' matSortDirection='desc' matSortDisableClear>
+                                 <!-- ID Column -->
+                                 <!-- <ng-container matColumnDef="assetId">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Asset Id</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.assetId}} </mat-cell>
+                                 </ng-container> -->
+                                 <!-- configurationName Column -->
+                                 <ng-container matColumnDef="assetName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="pointer" (click)="editAsset(row)"> 
+                                       <a>{{row.assetName}} </a></mat-cell>
+                                 </ng-container>
+                                 <!-- Status Column -->
+                                 <ng-container matColumnDef="assetIdentifier"  >
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Asset Identifier 
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">
+                                       {{row.assetIdentifier}}
+                                    </mat-cell>
+                                 </ng-container>
+                                 <!-- Type Column -->
+                                 <ng-container matColumnDef="locationName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Location Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.locationName }} </mat-cell>
+                                 </ng-container>
+                                 <!-- From Id Column -->
+
+                                 <ng-container matColumnDef="category">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Catagory </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.category}} </mat-cell>
+                                 </ng-container>
+                               <!--   <ng-container matColumnDef="subCategory">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Catagory </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.subCategory}} </mat-cell>
+                                 </ng-container> -->
+                                 <ng-container matColumnDef="active">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">
+                                    <!--<div>
+                                        <select class="badge" (change)="statusUpdate(row)" [ngClass]="{'badge-success':row.active, 'badge-danger':!row.active}">
+                                            <option value="true" [selected]="row.active">Active</option>
+                                            <option value="false" [selected]="!row.active">In Active</option>
+                                        </select>
+                                    </div>-->
+                                       <span *ngIf = row.active ><img alt="user-img" class="" src="assets/images/active.jpg" /></span>
+                                         <span *ngIf = !row.active ><img alt="user-img" class="" src="assets/images/inactive.jpg" /></span>	
+                                    </mat-cell>
+                                 
+                                </ng-container>
+                                 <!-- <ng-container matColumnDef="createdDate">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.createdDate}} </mat-cell>
+                                 </ng-container> -->
+                                 <ng-container matColumnDef="createdByName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Created By </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.createdByName}} </mat-cell>
+                                 </ng-container>
+                                 <ng-container matColumnDef="action">
+                                    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">
+                                       <!-- <i class="ti ti-pencil-alt edit-blue" title="Edit" (click)="editAsset(row)"></i>
+                                       &nbsp; --> <i class="ti ti-trash del-red" title="Delete"
+                                          (click)="deleteAssetPopUp(row.assetId,row.assetName)"></i>
+                                    </mat-cell>
+                                 </ng-container>
+                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                 <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                 </mat-row>
+                              </mat-table>
+                              <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                              <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+                           </div>
+
+                        </div>
+                     </div>
+
+
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

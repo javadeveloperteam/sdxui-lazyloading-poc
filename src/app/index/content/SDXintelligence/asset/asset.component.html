@@ -1,0 +1,272 @@
+<app-common [showLoader]="showLoader"></app-common>
+<div class="content-page">
+        <div class="content">
+           <div class="container">
+              <div class="row">
+                 <div class="col-sm-12">
+                    <div class="page-header-title">
+                       <h4 class="pull-left page-title">{{assetHeader}}</h4>
+                       <!--<ol class="breadcrumb pull-right">
+                          <li><a href="pages_index.html">Dashboard</a></li>
+                          <li class="active">Users</li>
+                          <li class="active">Create New Customer</li>
+                          </ol>-->
+                       <div class="clearfix"><a (click)="manageAsset()"   data-toggle="tooltip" title="Manage Asset" class="pull-right icon-create ng-star-inserted">
+                        <i class="ti ti-layout-media-left	createnew"></i> 
+                     </a></div>
+                    </div>
+                 </div>
+              </div>
+              <div class="row">
+                 <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                       <div class="panel-body">
+                          <div class="col-lg-12 col-xlg-12 col-md-12">
+                             <!-- <div class="row ">
+                                <a (click)="manageAsset()"  class="btn btn-success pull-right">
+                                 Manage Asset
+                                </a>
+                             </div> -->
+                             <form class="form-horizontal " role="form" [formGroup]="assetForm" (ngSubmit)="onSubmit()">
+                                <div class="row">
+                                   <div class="col-md-12">
+                                      <div class="form-group required">
+                                         <label class="control-label">
+                                         Asset Name
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="ion ion-filing" aria-hidden="true"></i></span>
+                                            <input aria-describedby="addon-right addon-left" type="text" placeholder="Asset Name"  formControlName="assetName"  class="form-control">
+                                         </div>
+                                         <div *ngIf="submitted && f.assetName.errors" class="invalid-feedback">
+                                          <div *ngIf="f.assetName.errors.required">Asset Name is required</div>
+                                       </div>
+                                      </div>
+                                   </div>
+
+								   <!--  <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label class="control-label">
+                                                    Status
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class=" ti ti-bar-chart"
+                                                            aria-hidden="true"></i></span>
+                                                    <select class="form-control form-control-line"
+                                                        formControlName="active">
+                                                        <option value="true">Active</option>
+                                                        <option value="false">In Active</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                </div>
+                                <div class="row">
+                                   
+                                    <div class="col-md-4">
+                                          <div class="form-group required">
+                                             <label class="control-label ">
+                                             Asset Identifier
+                                             </label>
+                                             <div class="input-group">
+                                                <span class="input-group-addon"><i class=" fa fa-search-plus" aria-hidden="true"></i></span>
+                                                <input aria-describedby="addon-right addon-left" type="text"  formControlName="assetIdentifier" placeholder="Asset Identifier" class="form-control">
+                                             </div>
+                                             <div *ngIf="submitted && f.assetIdentifier.errors" class="invalid-feedback">
+                                              <div *ngIf="f.assetIdentifier.errors.required"> Asset Identifier is required
+                                              </div>
+                                           </div>
+                                          </div>
+                                       </div>
+                                    
+                                   <div class="col-md-4">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                          Location
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon" ><i class=" ion ion-ios-location" aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="text" disabled="true"  formControlName="locationName" placeholder="Location" class="form-control">
+                                             <span class="input-group-addon naviagte_span" (click)="locationAsset()"><i class="fa fa-external-link naviagte_arrow" aria-hidden="true"></i></span> 
+                                          </div>
+                                          <div *ngIf="submitted && f.locationName.errors" class="invalid-feedback">
+                                           <div *ngIf="f.locationName.errors.required">Location is required</div>
+                                        </div>
+                                       </div>
+                                    </div>
+                                    
+                                   <div class="col-md-4">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                          Contact Person
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class="mdi mdi-account-box" aria-hidden="true"></i></span>
+                                             <input  formControlName="userName" disabled=true   aria-describedby="addon-right addon-left" type="text" placeholder=" contact Person" class="form-control">
+                                             <span class="input-group-addon naviagte_span" (click)="contactAsset()" ><i  class="fa fa-external-link naviagte_arrow" aria-hidden="true"></i></span> 
+                                          </div>
+                                          <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                                           <div *ngIf="f.userName.errors.required"> Contact Person is required</div>
+                                        </div>
+                                       </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                   
+                                    <div class="col-md-4">
+                                          <div class="form-group">
+                                             <label class="control-label">
+                                             Department
+                                             </label>
+                                             <div class="input-group">
+                                                <span class="input-group-addon"><i class=" ti ti-layout-slider" aria-hidden="true"></i></span>
+                                                <input aria-describedby="addon-right addon-left"   disabled=true  formControlName="departmentName" type="text" placeholder=" Department" class="form-control">
+                                                <span class="input-group-addon naviagte_span" (click)="departmentAsset()"><i class="fa fa-external-link naviagte_arrow" aria-hidden="true"></i></span> 
+                                             </div>
+                                             <div *ngIf="submitted && f.departmentName.errors" class="invalid-feedback">
+                                              <div *ngIf="f.departmentName.errors.required">Department is required</div>
+                                           </div>
+                                          </div>
+                                       </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group required">
+                                         <label class="control-label ">
+                                         Catagory
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class=" fa fa-sitemap" aria-hidden="true"></i></span>
+                                            <select class="form-control form-control-line" placeholder="Catagory" formControlName="category">
+                                               <option value = "" disabled>--Select--</option>
+                                               <option>Hardware</option>
+                                               <option>Software</option>
+                                               <option>Network</option>
+                                            </select>
+                                         </div>
+                                         <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                                          <div *ngIf="f.category.errors.required">Catagory is required</div>
+                                       </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                      <div class="form-group required">
+                                         <label class="control-label ">
+                                         Sub Catagory
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class=" fa fa-code-fork" aria-hidden="true"></i></span>
+                                            <select class="form-control form-control-line" placeholder="Sub Catagory" formControlName="subCategory">
+                                               <option value = "" disabled>--Select--</option>
+                                               <option>CD Drive</option>
+                                               <option>Hard Disk</option>
+                                               <option>Keyboard</option>
+                                               <option>Monitor</option>
+                                               <option>Mother Board</option>
+                                               <option>Printer</option>
+                                               <option>Serial Port</option>
+                                            </select>
+                                         </div>
+                                         <div *ngIf="submitted && f.subCategory.errors" class="invalid-feedback">
+                                          <div *ngIf="f.subCategory.errors.required">Sub Catagory is required</div>
+                                       </div>
+                                      </div>
+                                   </div>
+                                </div>
+                                <div class="row">
+                                   <div class="col-md-4">
+                                      <div class="form-group">
+                                         <label class="control-label">
+                                         Life Cycle Status
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="ti ti-loop" aria-hidden="true"></i></span>
+                                            <select class="form-control form-control-line" placeholder="Life Cycle Status"  formControlName="lifeCycleStatus">
+                                               <option value = "" disabled>--Select--</option>
+                                               <option>Development</option>
+                                               <option>Product</option>
+                                            </select>
+                                            <div *ngIf="submitted && f.lifeCycleStatus.errors" class="invalid-feedback">
+                                             <div *ngIf="f.lifeCycleStatus.errors.required">Life Cycle Status is required
+                                             </div>
+                                          </div>
+                                         </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                      <div class="form-group">
+                                         <label class="control-label required">
+                                         Management Status
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="ion ion-stats-bars" aria-hidden="true"></i></span>
+                                            <select class="form-control form-control-line" placeholder="Management Status"  formControlName="managementStatus">
+                                               <option value = "" disabled>--Select--</option>
+                                               <option>Managed</option>
+                                               <option>Not Approved</option>
+                                               <option>Un Managed</option>
+                                               <option>In Active</option>
+                                            </select>
+                                            <div *ngIf="submitted && f.managementStatus.errors" class="invalid-feedback">
+                                             <div *ngIf="f.managementStatus.errors.required">Management Status is required
+                                             </div>
+                                          </div>
+                                         </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                      <div class="form-group">
+                                         <label class="control-label">
+                                         Asset Status
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="  ion ion-arrow-graph-up-right" aria-hidden="true"></i></span>
+                                            <select class="form-control form-control-line" placeholder="Status" formControlName="status">
+                                               <option value = "" disabled>--Select--</option>                                                                                             
+                                               <option value="Ready">Ready</option>
+                                               <option value="MaintananceDue">Maintanance Due</option>
+                                               <option value="ImminentFailure">Imminent Failure</option>
+                                               <option value="Broken">Broken</option>
+                                               <option value="Idle">Idle</option>
+                                               <option value="ApprovedForAdd">To be Approved for Add</option>
+                                               <option value="ApprovedForDelete">To be Approved for Delete</option> 
+                                            </select>
+                                            <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                                             <div *ngIf="f.status.errors.required">Status is required</div>
+                                          </div>
+                                         </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-12">
+                                      <div class="form-group ">
+                                         <label class="control-label">
+                                         Comments
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="ti ti-list" aria-hidden="true"></i></span>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Comments" formControlName="comments" rows="3"></textarea>
+                                         </div>
+                                         <div *ngIf="submitted && f.comments.errors" class="invalid-feedback">
+                                          <div *ngIf="f.comments.errors.required">Comments is required</div>
+                                       </div>
+                                      </div>
+                                   </div>
+                                </div>
+                                <div class="row ">
+                                   <div class="col-sm-12">
+                                      <span class="manadory text-left "><small style="color:red;font-size:15px; ">*</small> - Required field	</span>
+                                   </div>
+                                   <div class="text-right col-sm-12">
+                                      <button type="submit " *ngIf="currentPage=='add'" class="btn btn-primary waves-effect waves-light ">Create</button>&nbsp;
+                                      <button type="submit" *ngIf="currentPage=='edit'"class="btn btn-primary waves-effect waves-light ">Update</button>&nbsp;
+                                       <button type="button " class="btn btn-default waves-effect waves-light " (click)="reset()">Reset</button>
+                                   </div>
+                                </div>
+                             </form>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <router-outlet></router-outlet>

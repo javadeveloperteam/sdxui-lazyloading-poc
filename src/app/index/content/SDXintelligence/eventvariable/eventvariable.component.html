@@ -1,0 +1,141 @@
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row page-header-title">
+                <div class="col-md-12">
+                    <div class="col-md-9 col-xs-4">
+                        <h4 class="pull-left page-title">Event variable</h4>
+                    </div>
+                    <div class="col-md-3 col-xs-8 mb2  pull-right">
+                        <div class="inner-addon right-addon mt5">
+                                <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Variable Name..." />
+                                                        <a  class="list-search"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="col-lg-12 col-xlg-12 col-md-12">                               
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-body">
+                                                            <!-- <div class="row">                            
+                                                            <div class="col-md-3 mb2">
+                                                              <div class="inner-addon right-addon mt10 mb10"> 
+                                                                <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Variable Name..." />
+                                                                <a  class="list-search"><i class="fa fa-search"></i></a>
+                                                              </div>
+                                                            </div>							
+                                                            </div> -->
+
+                                                        <div class="mat-elevation-z8 example-container table-responsive cust-eventvar">
+                                                            <mat-table [dataSource]="dataSource" matSort
+                                                                matSortActive='variableId' matSortDirection='desc'
+                                                                matSortDisableClear>
+                                                                <!-- ID Column -->
+                                                                <!-- <ng-container matColumnDef="variableId">
+                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                        Variable Id
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row"> {{row.variableId}}
+                                                                    </mat-cell>
+                                                                </ng-container> -->
+                                                                <!-- Application Name Column -->
+                                                                <ng-container matColumnDef="variableName">
+                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                        Variable Name
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row" class="pointer" (click)="editVariable(row.applicationId,row.eventId,row.variableId)"> 
+                                                                        <a>{{row.variableName}} </a></mat-cell>
+                                                                </ng-container>
+                                                                <!-- Application Name Column -->
+                                                                <!-- <ng-container matColumnDef="variableType">
+                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                        Variable Type
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row">
+                                                                        {{row.variableType}} </mat-cell>
+                                                                </ng-container> -->
+                                                               <!-- Application Name Column  -->
+                                                                <!-- <ng-container matColumnDef="variableValue">
+                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                        Variable Value
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row">
+                                                                        {{row.variableValue}} </mat-cell>
+                                                                </ng-container>  -->
+                                                                <!-- Application Name Column -->
+                                                                <ng-container matColumnDef="eventName">
+                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                        Event Name
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row"> {{row.eventName}}
+                                                                    </mat-cell>
+                                                                </ng-container>
+                                                                <!-- Created By Column -->
+                                                                <ng-container matColumnDef="applicationName">
+                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                        Application Name
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row">
+                                                                        {{row.applicationName}} </mat-cell>
+                                                                </ng-container>
+                                                                <!-- Message Column -->
+                                                                <!-- <ng-container matColumnDef="createdByName">
+                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                        Created By
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row">
+                                                                        {{row.createdByName}} </mat-cell>
+                                                                </ng-container> -->
+                                                                <ng-container matColumnDef="Action">
+                                                                    <mat-header-cell *matHeaderCellDef> Action
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row">
+                                                                       <!--  <i class="ti ti-pencil-alt edit-blue"
+                                                                            title="Edit"
+                                                                            (click)="editVariable(row.applicationId, row.eventId, row.variableId)"></i>
+                                                                        &nbsp; -->
+                                                                        <i class="ti ti-trash del-red" title="Delete"
+                                                                            (click)="deleteVariable(row.eventId, row.variableId, row.variableName)"></i>
+                                                                    </mat-cell>
+                                                                </ng-container><!--  -->
+                                                                <mat-header-row *matHeaderRowDef="displayedColumns">
+                                                                </mat-header-row>
+                                                                <mat-row
+                                                                    *matRowDef="let row; columns: displayedColumns;">
+                                                                </mat-row>
+                                                            </mat-table>
+                                                            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                                            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>                            
+                                                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+                                                        </div>
+
+                                                        <div class="col-lg-12 col-xlg-12 col-md-12">
+                                                            <div
+                                                                class="fresh-table full-color-orange table-responsive ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>

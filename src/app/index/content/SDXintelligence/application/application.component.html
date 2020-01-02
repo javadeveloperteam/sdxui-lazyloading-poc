@@ -1,0 +1,445 @@
+<app-common [showLoader]="showLoader">
+    </app-common>
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header-title">
+                        <h4 class="pull-left page-title">Application</h4>
+                        <!--<ol class="breadcrumb pull-right">
+                            <li><a href="pages_index.html">Dashboard</a></li>
+                            <li class="active">Users</li>
+                            <li class="active">Create New Customer</li>
+                        </ol>-->
+                        <div class="clearfix"><a routerLink="/index/sdxintelligence/applications"  data-toggle="tooltip" title="Manage Application" class="pull-right icon-create ng-star-inserted">
+                        <i class="ti ti-layout-media-left	createnew"></i> 
+                        </a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="col-lg-12 col-xlg-12 col-md-12">
+                                <!-- <div class="row ">                                
+                                    <a routerLink="/index/sdxintelligence/applications" class="btn btn-success pull-right ml10">
+                                        &nbsp;Manage Application
+                                    </a> &nbsp;                              
+                                    <a routerLink="/index/sdxintelligence/events" *ngIf="currentPage == 'editEvent'" class="btn btn-success pull-right">
+                                          Back
+                                        </a> &nbsp;                                     
+                                        <a routerLink="/index/sdxintelligence/eventvariables" *ngIf="currentPage == 'editEventVariable'" class="btn btn-success pull-right">
+                                         Back
+                                            </a> &nbsp;
+                                </div> -->
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <ul class="nav nav-tabs navtab-bg">
+                                            <li class="active">
+                                                <a href="#application"  (click)="tabClick('Application')" id="appTab" data-toggle="tab" aria-expanded="true"> <span class=""><i class="ti ti-files"></i></span> <span class="hidden-xs"> Application</span> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#event" (click)="tabClick('Event')" id="eventTab" [ngClass]="{ 'tab-disable': disableEvent}" data-toggle="tab" aria-expanded="false"> <span class=""><i class="ion ion-android-calendar"></i></span> <span class="hidden-xs"> Event</span> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#eventVariable" id="variableTab" (click)="tabClick('Variable')" [ngClass]="{ 'tab-disable': disableEventVariable}" data-toggle="tab" aria-expanded="false"> <span class=""><i class="ion ion-android-calendar"></i></span> <span class="hidden-xs"> Event Variable</span> </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="application">
+
+                                                <form class="form-horizontal " [formGroup]="applicationForm">
+                                                    <div class="row">
+
+
+                                                        <div class="col-md-12">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                     Application Name
+                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-id-badge" aria-hidden="true"></i></span>
+                                                                    <input id="appName" formControlName="applicationName" aria-describedby="addon-right addon-left" type="Text" placeholder="Enter Application Name" class="form-control">
+                                                                </div>
+                                                                <div *ngIf="appSubmitted && af.applicationName.errors" class="invalid-feedback">
+                                                                        <div *ngIf="af.applicationName.errors.required">Application Name
+                                                                         is required</div>
+                                                                     </div>
+                                                            </div>
+                                                        </div>                                                  
+                                                     <!--    <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                               <label class="control-label">
+                                                            Status
+                                                               </label>
+                                                               <div class="input-group">
+                                                                  <span class="input-group-addon"><i class=" ti ti-bar-chart"
+                                                                     aria-hidden="true"></i></span>
+                                                                  <select class="form-control form-control-line"
+                                                                     formControlName="active">
+                                                                     <option value="true">Active</option>
+                                                                     <option value="false">In Active</option>
+                                                                  </select>
+                                                               </div>
+                                                            </div>
+                                                         </div> -->
+                                                        <div class="col-md-12">
+                                                            <div class="form-group ">
+                                                                <label class="control-label">
+                                     Comments
+                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-list" aria-hidden="true"></i></span>
+                                                                    <textarea formControlName="comments" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                    <div class="row ">
+                                                        <div class="col-sm-12">
+                                                            <span class="manadory text-left "><small style="color:red;font-size:15px; ">*</small> - Required field	</span>
+                                                        </div>
+                                                        <div class="text-right col-sm-12">
+                                                            <button type="button " class="btn btn-primary waves-effect waves-light "(click)="onSubmitApplication()">{{appButtonName}}</button>&nbsp;
+                                                            <button type="button " class="btn btn-default waves-effect waves-light " (click)="clear('application')">Reset</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane" id="event">
+                                                <form class="form-horizontal " [formGroup]="eventForm">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Application Name
+                                                                  </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-id-badge" aria-hidden="true"></i></span>
+                                                                    <input formControlName="applicationName" value="{{af.applicationName.value}}" disabled aria-describedby="addon-right addon-left" type="Text" placeholder="Enter Application Name" class="form-control">
+                                                                </div>                                                        
+                                                            </div>
+                                                        </div>
+														 <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Event Name
+                                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-calendar" aria-hidden="true"></i></span>
+                                                                    <input formControlName="eventName" aria-describedby="addon-right addon-left" type="Text" placeholder="Enter Event Name" class="form-control">
+                                                                </div>
+                                                                <div *ngIf="eventSubmitted && ef.eventName.errors" class="invalid-feedback">
+                                                                        <div *ngIf="ef.eventName.errors.required">Event Name
+                                                                         is required</div>
+                                                                     </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Event Type
+                                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ion ion-network" aria-hidden="true"></i></span>
+                                                                     <select formControlName="eventType" class="form-control form-control-line">
+                                               <option value="" disabled>--Select--</option>
+                                               <option value="{{item.fieldValue}}" *ngFor="let item of eventTypes">{{item.fieldValue}}</option>
+                                            </select>
+                                                                </div>
+                                                                <div *ngIf="eventSubmitted && ef.eventType.errors" class="invalid-feedback">
+                                                                        <div *ngIf="ef.eventType.errors.required">Event Type
+                                                                         is required</div>
+                                                                     </div>
+                                                            </div>
+                                                        </div>
+														 <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label" style="visibility:hidden">
+                                                                    Event Type
+                                                     </label>
+                                                                <div class="input-group">
+                                                                    <button type="button " (click)="openEventTypePopUp()" class="btn btn-primary waves-effect waves-light ">
+                                                                     Create Event Type</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+ <div class="col-md-12">
+                                                            <div class="form-group ">
+                                                                <label class="control-label">
+                                     Comments
+                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-list" aria-hidden="true"></i></span>
+                                                                    <textarea formControlName="comments" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="row ">
+                                                        <div class="col-sm-12">
+                                                            <span class="manadory text-left "><small style="color:red;font-size:15px; ">*</small> - Required field	</span>
+                                                        </div>
+                                                        <div class="text-right col-sm-12">
+                                                            <button type="button " class="btn btn-primary waves-effect waves-light "(click)="onSubmitEvent()">{{eventButtonName}}</button>&nbsp;                                                            
+                                                            <button type="button " class="btn btn-default waves-effect waves-light " (click)="clear('event')">Reset</button>
+                                                        </div>
+                                                    </div><br>
+													<h4>Event Listing</h4>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                                                                       
+                                                                        <div class="row">                            
+                                                            <div class="col-md-3 mb2">
+                                                              <div class="inner-addon right-addon mt10 mb10"> 
+                                                                <input type="text" (keyup)="applyFilterEvent($event.target.value)"  class="form-control LSpadding" placeholder="Enter Event Name..." />
+                                                                <a class="list-search"><i class="fa fa-search"></i></a>
+                                                              </div>
+                                                            </div>							
+                                                            </div> 
+                                         
+                                                                    <div class="mat-elevation-z8 example-container table-responsive">
+                                                                        <mat-table [dataSource]="eventDataSource" #matSort1="matSort" matSort matSortActive='eventId' matSortDirection='desc' matSortDisableClear>
+                                                                            <!-- ID Column -->
+                                                                            <ng-container matColumnDef="eventId">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header>Event Id
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row"> {{row.eventId}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <!-- Application Name Column -->
+                                                                            <ng-container matColumnDef="eventName">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Event Name
+                                                                                </mat-header-cell>                                                                             
+                                                                                <mat-cell *matCellDef="let row" class="pointer" (click)="eventCellClick(row)">
+                                                                                    <a>{{row.eventName}} </a> </mat-cell>
+                                                                             </ng-container>
+                                                                            <!-- Created By Column -->
+                                                                            <ng-container matColumnDef="eventType">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Event Type
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row"> {{row.eventType}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <ng-container matColumnDef="applicationName">
+                                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Application Name
+                                                                                    </mat-header-cell>
+                                                                                    <mat-cell *matCellDef="let row"> {{row.applicationName}} </mat-cell>
+                                                                                </ng-container>
+                                                                              <!-- Message Column -->
+                                                                              <ng-container matColumnDef="createdByName">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Created By
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row"> {{row.createdByName}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <ng-container matColumnDef="Action">
+                                                                                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">
+                                                                                    <i class="ti ti-trash del-red" title="Delete"
+                                                                                        (click)="deleteEvent(row.applicationId, row.eventId, row.eventName)"></i>
+                                                                                </mat-cell>
+                                                                            </ng-container><!--  -->
+                                                                            <mat-header-row *matHeaderRowDef="eventDisplayedColumns"></mat-header-row>
+                                                                            <mat-row *matRowDef="let row; columns: eventDisplayedColumns;">
+                                                                            </mat-row>
+                                                                        </mat-table>
+                                                                        <div class='table-grid-msg' *ngIf='eventDataSource && eventDataSource.data.length === 0'>No Records Found</div>
+                                                                        <div class='table-grid-msg' *ngIf='eventDataSource && eventDataSource.data.length != 0 && eventDataSource.filteredData.length === 0'>No Matching Records Found</div>                        
+                                                              <mat-paginator #paginator1 [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                                 
+                                                                    </div>
+                                         
+                                                                    
+                                                               
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane" id="eventVariable">
+                                                <form class="form-horizontal " [formGroup]="eventVariableForm">
+                                                    <div class="row">
+                                                         <div class="col-md-12">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Application Name
+                                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-id-badge" aria-hidden="true"></i></span>
+                                                                    <input formControlName="applicationName" value="{{af.applicationName.value}}" aria-describedby="addon-right addon-left" type="Text" placeholder="Application Name" disabled class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+														 <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Event Name
+                                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-calendar" aria-hidden="true"></i></span>
+                                                                    <select formControlName="eventId" class="form-control form-control-line" (change)="loadAllVariableByEvent($event.target.value)">
+                                                                            <option value="" disabled>--Select--</option>
+                                                                            <option *ngFor="let item of events" value="{{item.eventId}}">{{item.eventName}}</option>                
+                                                                         </select>
+                                                                </div>
+                                                                <div *ngIf="variableSubmitted && vf.eventId.errors" class="invalid-feedback">
+                                                                        <div *ngIf="vf.eventId.errors.required">Event Name
+                                                                         is required</div>
+                                                                     </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Variable Name
+                                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ion ion-asterisk" aria-hidden="true"></i></span>
+                                                                    <input formControlName="variableName" aria-describedby="addon-right addon-left" type="Text" placeholder="Enter Variable Name" class="form-control">
+                                                                </div>
+                                                                <div *ngIf="variableSubmitted && vf.variableName.errors" class="invalid-feedback">
+                                                                        <div *ngIf="vf.variableName.errors.required">Variable Name is required</div>
+                                                                        <div *ngIf="vf.variableName.errors.pattern">Invalid Variable Name</div>
+                                                                        
+                                                                     </div>
+                                                            </div>
+                                                        </div> <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Data Type
+                                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ion ion-network" aria-hidden="true"></i></span>
+                                                                    <select formControlName="variableType" class="form-control form-control-line">
+                                                                            <option value="" disabled>--Select--</option>
+                                                                            <option value="TEXT">Text</option>
+                                                                            <option value="NUMBER">Number</option>
+                                                                           <!--  <option value="DATE">Date</option> -->
+                                                                         </select>
+                                                                     </div>
+                                                                     <div *ngIf="variableSubmitted && vf.variableType.errors" class="invalid-feedback">
+                                                                            <div *ngIf="vf.variableType.errors.required">Data Type
+                                                                             is required</div>
+                                                                         </div>
+                                                            </div>
+                                                        </div>														 
+ <div class="col-md-12">
+                                                            <div class="form-group ">
+                                                                <label class="control-label">
+                                     Comments
+                                     </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="ti ti-list" aria-hidden="true"></i></span>
+                                                                    <textarea formControlName="comments" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="row ">
+                                                        <div class="col-sm-12">
+                                                            <span class="manadory text-left "><small style="color:red;font-size:15px; ">*</small> - Required field	</span>
+                                                        </div>
+                                                        <div class="text-right col-sm-12">
+                                                            <button type="button " class="btn btn-primary waves-effect waves-light " (click)="onSubmitVariable()">{{variableButtonName}}</button>&nbsp;                                                            
+                                                            <button type="button " class="btn btn-default waves-effect waves-light " (click)="clear('eventVariable')">Reset</button>
+                                                        </div>
+                                                    </div><br>
+													<h4>Event Variable Listing</h4>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                                                                                       
+																	<div class="row">                            
+																	<div class="col-md-3 mb2">
+																	<div class="inner-addon right-addon mt10 mb10"> 
+																	<input type="text" (keyup)="applyFilterVariable($event.target.value)"  class="form-control LSpadding" placeholder="Enter Variable Name..." />
+																	<a class="list-search"><i class="fa fa-search"></i></a>
+																	</div>
+																	</div>
+																	</div>															
+                                         
+                                                                    <div class="mat-elevation-z8 example-container table-responsive app_eventvariable mt15 ">
+                                                                        <mat-table [dataSource]="variableDataSource" #matSort2="matSort" matSort matSortActive='variableId' matSortDirection='desc' matSortDisableClear>
+                                                                            <!-- ID Column -->
+                                                                            <ng-container matColumnDef="variableId">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header>Variable Id
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row"> {{row.variableId}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <!-- Application Name Column -->
+                                                                            <ng-container matColumnDef="variableName">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Variable Name
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row" class="pointer" (click)="variableCellClick(row)"> 
+                                                                                    <a>{{row.variableName}} </a></mat-cell>
+                                                                             </ng-container>
+                                                                              <!-- Application Name Column -->
+                                                                            <ng-container matColumnDef="variableType">
+                                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Variable Type
+                                                                                    </mat-header-cell>
+                                                                                    <mat-cell *matCellDef="let row"> {{row.variableType}} </mat-cell>
+                                                                                 </ng-container>
+                                                                                  <!-- Application Name Column -->
+                                                                            <ng-container matColumnDef="variableValue">
+                                                                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Variable Value
+                                                                                    </mat-header-cell>
+                                                                                    <mat-cell *matCellDef="let row"> {{row.variableValue}} </mat-cell>
+                                                                                 </ng-container>
+                                                                                  <!-- Application Name Column -->
+                                                                            <ng-container matColumnDef="eventName">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Event Name
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row"> {{row.eventName}} </mat-cell>
+                                                                             </ng-container>
+                                                                            <!-- Created By Column -->
+                                                                            <ng-container matColumnDef="applicationName">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Application Name
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row"> {{row.applicationName}} </mat-cell>
+                                                                            </ng-container>
+                                                                              <!-- Message Column -->
+                                                                              <ng-container matColumnDef="createdByName">
+                                                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Created By
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row"> {{row.createdByName}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <ng-container matColumnDef="Action">
+                                                                                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">                                                        
+                                                                                    &nbsp;
+                                                                                    <i class="ti ti-trash del-red" title="Delete"
+                                                                                        (click)="deleteEventVariable(row.eventId, row.variableId, row.variableName)"></i>
+                                                                                </mat-cell>
+                                                                            </ng-container><!--  -->
+                                                                            <mat-header-row *matHeaderRowDef="variableDisplayedColumns"></mat-header-row>
+                                                                            <mat-row *matRowDef="let row; columns: variableDisplayedColumns;">
+                                                                            </mat-row>
+                                                                        </mat-table>
+                                                                        <div class='table-grid-msg' *ngIf='variableDataSource && variableDataSource.data.length === 0'>No Records Found</div>
+                                                                        <div class='table-grid-msg' *ngIf='variableDataSource && variableDataSource.data.length != 0 && variableDataSource.filteredData.length === 0'>No Matching Records Found</div>
+                                                              <mat-paginator #paginator2 [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                                                                        
+                                                                    </div>
+                                         
+                                                              
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>

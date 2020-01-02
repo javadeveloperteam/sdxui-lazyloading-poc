@@ -1,0 +1,99 @@
+  <h4 class="page-title matheader" >LOCATION SELECTION
+   <button class="mattext-danger" mat-dialog-close>X</button>
+</h4>
+<mat-dialog-content>
+    <app-common [showLoader]="showLoader">
+    </app-common>
+    <div class="col-sm-12">
+     
+            <div class="row example-container clr_fl">                            
+			<div class="col-md-4 mb2  pull-right">
+				<div class="inner-addon right-addon mt10 mb10"> 
+					<input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Location Name..." />
+					<a  class="list-search"><i class="fa fa-search"></i></a>
+				</div>
+			</div>							
+			</div>
+         
+          <div class="mat-elevation-z8 example-container table-responsive mb10 custmlocation-SM">
+            <mat-table [dataSource]="dataSource" matSort matSortActive='locationId' matSortDirection='desc' matSortDisableClear>               
+                  <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <mat-checkbox  [disabled]="true" (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                      </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      <mat-checkbox value="matchecked" (click)="checkSelection(matchecked,row)" (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+      
+              <!-- <ng-container matColumnDef="locationId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Location Id </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.locationId}} </mat-cell>
+              </ng-container>       -->
+              <ng-container matColumnDef="locationName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Location Name </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.locationName}} </mat-cell>
+              </ng-container>
+              
+              <ng-container matColumnDef="addressLine1">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Address Line 1 </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  {{row.addressLine1}}
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="countryName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.countryName}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="stateName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.stateName}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="city">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="comments">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Comments </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.comments}} </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+            <mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+          </div>
+          
+        <!--   <div class="row ">
+          <div class="text-left col-sm-12">
+               <button type="button" 
+                  class="btn dialogbutn2" (click)="select()">Select</button>&nbsp;
+               <button type="button " class="btn btn-default waves-effect waves-light "
+                [mat-dialog-close]="true"  
+             >Cancel</button>
+            </div>
+         </div> -->
+          <!-- <div class="col-lg-12 col-xlg-12 col-md-12">
+            <div class="fresh-table full-color-orange table-responsive ">
+            </div>
+          </div> -->
+        
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+      <!--<button mat-button [mat-dialog-close]="true" style="background-color:#1BB9D5; color: cornsilk;"
+        cdkFocusInitial>CLOSE</button>-->
+        <div class="text-right col-sm-12">
+            <button type="button " class="btn btn-primary waves-effect waves-light" (click)="select()">Add</button>&nbsp;                                                            
+            <button type="button " (click)="clear()" class="btn btn-default1 waves-effect waves-light ">Clear</button>
+        </div>
+    </mat-dialog-actions>
+  

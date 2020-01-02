@@ -1,0 +1,66 @@
+
+<div class="row">
+   <div class="col-sm-11 col-md-11"><h1 mat-dialog-title>Event Record</h1></div>
+   <div class="col-sm-1 col-md-1"><i class="ti ti-close" (click)="close()"></i></div>
+</div>
+<div mat-dialog-content *ngIf="showDialog">
+
+  <div class="row row-padding">
+                <div class="col-sm-4 col-md-4 custom-mat-cell-row-tab"><b>Event ID: </b> {{eventRecord.eventId}}</div>
+                <div class="col-sm-4 col-md-4 custom-mat-cell-row-tab"><b>Event Status: </b> {{eventRecord.eventStatus}}</div>
+                 <div class="col-sm-4 col-md-4 custom-mat-cell-row-tab"><b>Event Occured: </b> {{eventRecord.createdOn | date: 'short' }}</div>
+  </div>
+  <div class="row row-padding">
+                <div class="col-sm-4 col-md-4 custom-mat-cell-row-tab"><b>Application Name: </b> {{eventRecord.applicationName}}</div>
+                <div class="col-sm-4 col-md-4 custom-mat-cell-row-tab"><b>Event Name: </b> {{eventRecord.eventName}}</div>
+                <div class="col-sm-4 col-md-4 custom-mat-cell-row-tab"><b>Asset Name: </b> {{eventRecord.assetName}}</div>
+  </div>
+  
+<div class="col-lg-12 col-xlg-12 col-md-12">
+ <div class="mat-elevation-z8 example-container table-responsive">
+   <mat-table #table [dataSource]="policies">
+        <ng-container matColumnDef="policyId">
+         <mat-header-cell *matHeaderCellDef> Policy ID </mat-header-cell>
+         <mat-cell *matCellDef="let element"> {{element.policyId}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="policyName">
+          <mat-header-cell *matHeaderCellDef> Policy Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.policyName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ruleId">
+          <mat-header-cell *matHeaderCellDef> Rule ID </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ruleId}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ruleName">
+          <mat-header-cell *matHeaderCellDef> Rule Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ruleName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ruleMessage">
+          <mat-header-cell *matHeaderCellDef> Rule Message </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ruleMessage}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ruleStatus">
+          <mat-header-cell *matHeaderCellDef> Rule Status </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ruleStatus}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="destinationName">
+          <mat-header-cell *matHeaderCellDef> Destination </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            {{element.destinationName}}
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="policiesDisplayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: policiesDisplayedColumns;"
+                class="element-row">
+        </mat-row>
+    </mat-table>
+    <div class='table-grid-msg' *ngIf='policies == undefined'>No Matched Rules Found</div>
+    </div>
+   </div>
+</div>
+
+
+
+       
+  
+       
