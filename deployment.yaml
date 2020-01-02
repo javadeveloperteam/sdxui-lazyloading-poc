@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: servicedx_ui
+    release: "1.0"
+    env: dev
+  name: servicedx_ui
+  namespace: sdx-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicedx_ui
+      release: "1.0"
+      env: dev  
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: servicedx_ui
+        release: "1.0"
+        env: dev
+    spec:
+      containers:
+      - image: 233431242547.dkr.ecr.us-east-1.amazonaws.com/servicedx_ui:latest
+        name: servicedx_ui
+        ports:
+        - containerPort: 80
+        resources:
+            requests:
+              memory: "350Mi"
+              cpu: "250m"
+            limits:
+              memory: "700Mi"
+              cpu: "500m"
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+status: {}

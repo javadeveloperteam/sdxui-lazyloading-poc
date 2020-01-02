@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp:  null
+  labels:
+    app: servicedx_ui
+    release: "1.0"
+    env: dev
+  name: servicedx_ui
+  namespace: sdx-dev
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: servicedx_ui
+    release: "1.0"
+    env: dev
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
