@@ -1,0 +1,161 @@
+<app-common [showLoader]="showLoader">
+</app-common>
+<div class="content-page">
+        <div class="content">
+           <div class="container">
+            <div class="row page-header-title">
+               <div class="col-md-12">
+                   <div class="col-md-8 col-xs-4">
+                       <h4 class="pull-left page-title">Location</h4>
+                   </div>
+                   <div class="col-md-1 col-xs-1">
+                       <a class="icon-create pull-right" data-toggle="tooltip" (click)="addlocation()"  title="Create Location"><i class="ti ti-layout-media-center createnew"></i></a>
+                   </div>
+                   <div class="col-md-3 col-xs-7 mb2  pull-right">
+                       <div class="inner-addon right-addon mt5">
+                        <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Location Name..." />
+                        <a class="list-search"><i class="fa fa-search"></i></a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+              <div class="row">
+                 <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                       <div class="panel-body">
+                           <!-- <div class="form-group has-feedback pull-left">                                  
+                                 <input type="text" class="form-control" placeholder="Enter Location Name" id="inputSuccess2"/>
+                                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                             </div> -->
+                             <!-- <div class="row">                            
+                                <div class="col-md-3 mb2">
+                                  <div class="inner-addon right-addon mt10"> 
+                                    <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Location Name..." />
+                                    <a class="list-search"><i class="fa fa-search"></i></a>
+                                  </div>
+                                </div>
+                                <a  (click)="addlocation()"   class="btn btn-success pull-right m-adjust mt15">
+                                Create Location
+                                </a>
+                            </div> -->
+                          <!-- <div class="col-lg-12 col-xlg-12 col-md-12">
+                             <div class="fresh-table full-color-orange table-responsive ">
+                                <table datatable class="table custtable table-striped table-bordered">
+                                   <thead>
+                                      <tr>
+                                         <th>Location ID</th>
+                                         <th>Location Name</th>
+                                         <th>Address Line 1</th>
+                                         <th>Address Line 2</th>
+                                         <th>Country</th>
+                                         <th>State</th>
+                                         <th>City</th>
+                                         <th>Zipcode</th>
+                                         <th>Comments</th>
+                                         <th>Action</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      <tr>
+                                         <td>1002</td>
+                                         <td><a href="#" class="btn btn-link waves-effect waves-light">Button Link</a>
+                                         </td>
+                                         <td>Chennai
+                                         </td>
+                                         <td>Coimbatore</td>
+                                         <td>Chennai</td>
+                                         <td></td>
+                                         <td></td>
+                                         <td></td>
+                                         <td></td>
+                                         <td><i class="ti ti-trash del-red"></i></td>
+                                      </tr>
+                                   </tbody>
+                                </table> -->
+                                <div class="mat-elevation-z8 example-container table-responsive">
+                                 <mat-table [dataSource]="dataSource" matSortActive='locationId' matSortDirection='desc' matSortDisableClear matSort>
+                                   <!-- ID Column -->
+                                   <!-- <ng-container matColumnDef="locationId">
+                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Location Id </mat-header-cell>
+                                     <mat-cell *matCellDef="let row"> {{row.locationId}} </mat-cell>
+                                   </ng-container> -->
+                                   <!-- configurationName Column -->
+                                   <ng-container matColumnDef="locationName">
+                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Location Name </mat-header-cell>
+                                     <mat-cell *matCellDef="let row" class="pointer" (click)="editlocation(row)"> 
+                                       <a>{{row.locationName}} </a></mat-cell>
+                                   </ng-container>
+                                   <!-- Status Column -->
+                                   <ng-container matColumnDef="addressLine1">
+                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Address Line 1 </mat-header-cell>
+                                     <mat-cell *matCellDef="let row"> 
+                                             {{row.addressLine1}}
+                                     </mat-cell>
+                                   </ng-container>
+                                   <!-- Type Column -->
+                                   <ng-container matColumnDef="addressLine2">
+                                       <mat-header-cell *matHeaderCellDef mat-sort-header> Address Line 2 </mat-header-cell>
+                                       <mat-cell *matCellDef="let row"> {{row.addressLine2 }} </mat-cell>
+                                     </ng-container>
+                                   <!-- From Id Column -->
+                                   <ng-container matColumnDef="countryName">
+                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+                                     <mat-cell *matCellDef="let row"> {{row.countryName}} </mat-cell>
+                                   </ng-container>
+                                   <ng-container matColumnDef="stateName">
+                                         <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+                                         <mat-cell *matCellDef="let row"> {{row.stateName}} </mat-cell>
+                                       </ng-container>
+                                       <ng-container matColumnDef="city">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+                                             <mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
+                                           </ng-container>
+                                           <ng-container matColumnDef="zipcode">
+                                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Zipcode </mat-header-cell>
+                                                 <mat-cell *matCellDef="let row"> {{row.zipCode}} </mat-cell>
+                                               </ng-container>
+                                               <!-- <ng-container matColumnDef="comments">
+                                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Comments </mat-header-cell>
+                                                     <mat-cell *matCellDef="let row"> {{row.comments}} </mat-cell>
+                                                   </ng-container> -->
+                                                   <ng-container matColumnDef="active">
+                                                      <mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                                                      </mat-header-cell>
+                                                      <mat-cell *matCellDef="let row">
+                                                      <!--<div>
+                                                          <select class="badge" (change)="statusUpdate(row)" [ngClass]="{'badge-success':row.active, 'badge-danger':!row.active}">
+                                                              <option value="true" [selected]="row.active">Active</option>
+                                                              <option value="false" [selected]="!row.active">In Active</option>
+                                                          </select>
+                                                      </div>-->
+                                                        <span *ngIf = row.active ><img alt="user-img" class="" src="assets/images/active.jpg" /></span>
+														                            <span *ngIf = !row.active ><img alt="user-img" class="" src="assets/images/inactive.jpg" /></span>
+                                                      </mat-cell>
+                                                   
+                                                  </ng-container>
+                                   <ng-container matColumnDef="Action">
+                                     <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                     <mat-cell *matCellDef="let row">    
+                                      <!--  <i class="ti ti-pencil-alt edit-blue" title="Edit" (click)="editlocation(row)"></i> 
+                                       &nbsp; --> <i class="ti ti-trash del-red" title="Delete" (click)="deleteLocationPopUp(row.locationId,row.locationName)"></i>
+                                     </mat-cell>
+                                   </ng-container>                
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                   <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                 </mat-row>
+                               </mat-table>
+                               <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                               <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>                          
+                               <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+                             </div> 
+                             
+                             <!-- </div>
+                          </div>-->
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>

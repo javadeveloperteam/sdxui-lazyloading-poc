@@ -1,0 +1,124 @@
+<app-common [showLoader]="showLoader">
+</app-common>
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row page-header-title">
+                <div class="col-md-12">
+                    <div class="col-md-8 col-xs-4">
+                        <h4 class="pull-left page-title">Rule</h4>
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <a class="icon-create pull-right" data-toggle="tooltip" routerLink="/index/sdxintelligence/rules/add" title="Create Rule"><i class="ti ti-layout-media-center createnew"></i></a>
+                    </div>
+                    <div class="col-md-3 col-xs-7 mb2  pull-right">
+                        <div class="inner-addon right-addon mt5">
+                                <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Rule Name..." />
+                                <a  class="list-search"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <!-- <div class="row">                            
+                                <div class="col-md-3 mb2">
+                                  <div class="inner-addon right-addon mt10"> 
+                                    <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Rule Name..." />
+                                    <a  class="list-search"><i class="fa fa-search"></i></a>
+                                  </div>
+                                </div>
+                                <a  routerLink="/index/sdxintelligence/rules/add" class="btn btn-success pull-right m-adjust mt15">
+                                Create Rule
+                                </a>
+                            </div> -->
+
+                            <div class="mat-elevation-z8 example-container table-responsive">
+                                <mat-table [dataSource]="dataSource" matSort matSortActive='ruleId' matSortDirection='desc' matSortDisableClear>
+                                    <!-- ID Column -->
+                                    <!-- <ng-container matColumnDef="ruleId">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Rule Id
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.ruleId}} </mat-cell>
+                                    </ng-container> -->
+                                    <!-- Rule Name Column -->
+                                    <ng-container matColumnDef="ruleName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Rule Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row" class="pointer" (click)="editRule(row.ruleId)"> 
+                                            <a>{{row.ruleName}} </a></mat-cell>                                    </ng-container>
+                                      <!-- Application Name Column -->
+                                      <ng-container matColumnDef="applicationName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Application Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.applicationName}} </mat-cell>
+                                    </ng-container>
+                                      <!-- Event Name Column -->
+                                      <ng-container matColumnDef="eventName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Event Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.eventName}} </mat-cell>
+                                    </ng-container>
+                                    <!-- Active Column -->
+                                  
+                                    <!-- Created By Column -->
+                                    <!-- <ng-container matColumnDef="ruleExpression">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Query
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.ruleExpression}} </mat-cell>
+                                    </ng-container> -->
+                                      <!-- Message Column -->
+                                      <ng-container matColumnDef="messageContent">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Message
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.messageContent}} </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="active">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">
+                                        <!--<div>
+                                            <select class="badge" (change)="statusUpdate(row)" [ngClass]="{'badge-success':row.active, 'badge-danger':!row.active}">
+                                                <option value="true" [selected]="row.active">Active</option>
+                                                <option value="false" [selected]="!row.active">In Active</option>
+                                            </select>
+                                        </div> -->
+                                           <span *ngIf = row.active ><img alt="user-img" class="" src="assets/images/active.jpg" /></span>
+                                         <span *ngIf = !row.active ><img alt="user-img" class="" src="assets/images/inactive.jpg" /></span>	
+                                        </mat-cell>
+                                     
+                                    </ng-container>
+                                    <ng-container matColumnDef="Action">
+                                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">
+                                           <!--  <i class="ti ti-pencil-alt edit-blue" title="Edit"
+                                                (click)="editRule(row.ruleId)"></i>
+                                            &nbsp; -->
+                                            <i class="ti ti-trash del-red" title="Delete"
+                                                (click)="deleteRulePopUp(row.eventId,row.ruleId, row.ruleName)"></i>
+                                        </mat-cell>
+                                    </ng-container><!--  -->
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                    </mat-row>
+                                </mat-table>
+                                <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+                            </div>
+
+                            <div class="col-lg-12 col-xlg-12 col-md-12">
+                                <div class="fresh-table full-color-orange table-responsive ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,241 @@
+<app-common [showLoader]="showLoader">
+   </app-common>
+   <div class="content-page">
+   <div class="content">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="page-header-title">
+                  <h4 class="pull-left page-title">{{buttonName}} POLICY</h4>
+                  <!--<ol class="breadcrumb pull-right">
+                          <li><a href="pages_index.html">Dashboard</a></li>
+                          <li class="active">Users</li>
+                          <li class="active">Create New Customer</li>
+                          </ol>-->
+                  <div class="clearfix"><a routerLink="/index/sdxintelligence/policies" data-toggle="tooltip" title="  Manage Policy" class="pull-right icon-create ng-star-inserted">
+                    <i class="ti ti-layout-media-left	createnew"></i> 
+                  </a></div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="panel panel-primary">
+                  <div class="panel-body">
+                     <div class="col-lg-12 col-xlg-12 col-md-12">
+                        <!-- <div class="row ">
+                           <a routerLink="/index/sdxintelligence/policies" class="btn btn-success pull-right">
+                             Manage Policy
+                           </a>
+                        </div> -->
+                        <form class="form-horizontal " [formGroup]="policyForm">
+                           <div class="row">
+                              <div class="col-md-8">
+                                 <div class="form-group required">
+                                    <label class="control-label">
+                                       Policy Name
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="ti ti-agenda"
+                                             aria-hidden="true"></i></span>
+                                       <input formControlName="policyName" aria-describedby="addon-right addon-left"
+                                          type="text" placeholder="Enter Policy Name" class="form-control">
+                                    </div>
+                                    <div *ngIf="submitted && f.policyName.errors" class="invalid-feedback">
+                                       <div *ngIf="f.policyName.errors.required">Policy Name is required</div>
+                                    </div>
+                                 </div>
+                              </div>
+							   <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label class="control-label">
+                                                    Status
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class=" ti ti-bar-chart"
+                                                            aria-hidden="true"></i></span>
+                                                    <select class="form-control form-control-line"
+                                                        formControlName="active">
+                                                        <option value="true">Active</option>
+                                                        <option value="false">In Active</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                    <div class="form-group required">
+                                       <label class="control-label ">
+                                          Application
+                                       </label>
+                                       <div class="input-group">
+                                          <span class="input-group-addon"><i class="ti ti-pencil-alt"
+                                                aria-hidden="true"></i></span>
+                                          <select class="form-control form-control-line" (change)="loadAllEventByApp($event.target.value,null);onChangeApp();" formControlName="applicationId">
+                                             <option value='' disabled>--Select--</option>
+                                             <option value="{{item.applicationId}}" *ngFor="let item of applications">{{item.applicationName}}</option>
+                                          </select>
+                                       </div>
+                                       <div *ngIf="submitted && f.applicationId.errors"
+                                       class="invalid-feedback">
+                                       <div *ngIf="f.applicationId.errors.required">Application Name
+                                           is required</div>
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <div class="form-group required">
+                                       <label class="control-label ">
+                                          Event Name
+                                       </label>
+                                       <div class="input-group">
+                                          <span class="input-group-addon"><i class=" ion ion-android-calendar"
+                                                aria-hidden="true"></i></span>
+                                          <select class="form-control form-control-line " formControlName="eventId" (change)="onChangeEvent();">
+                                             <option  value="" disabled>--Select-- </option>
+                                             <option value="{{item.eventId}}" *ngFor="let item of events">{{item.eventName}}</option>
+                                          </select>
+                                       </div>
+                                       <div *ngIf="submitted && f.eventId.errors"
+                                       class="invalid-feedback">
+                                       <div *ngIf="f.eventId.errors.required">Event Name
+                                           is required</div>
+                                        </div>
+                                    </div>
+                                 </div>
+								      
+                              <div class="col-md-10">
+                                 <div class="form-group required">
+                                    <label class="control-label">
+                                       Asset Name
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class=" ion ion-filing"
+                                             aria-hidden="true"></i></span>
+                                       <!--  <input aria-describedby="addon-right addon-left" type="text" placeholder="Location" class="form-control">-->
+                                       <div id="assetDiv" class="form-group form-control"
+                                          style="height: 100px; overflow:auto; padding:0;" >
+                                          <li class="form-control custflag" *ngFor="let item of selectedAssets">
+                                             {{item.assetName}}
+                                             <a (click)="removeAsset(item.assetId)"><span class="ion ion-close-round cut_close"></span></a>
+                                         </li>
+                                       </div>
+                                       <span class="input-group-addon naviagte_span "><i id="assetIcon" (click)="openAssetPopUp()"
+                                             class="fa fa-external-link naviagte_arrow" [ngClass]="{'icon-disable' : this.f.allAssetFlag.value}" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div *ngIf="submitted && (selectedAssets.length == 0 && !f.allAssetFlag.value)" class="invalid-feedback">
+                                       <div>Asset Name is required</div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-2">
+                                 <div class="form-group "><label class="control-label" style="visibility:hidden">
+                                       Escaltion </label>
+                                    <div class="input-group">
+                                       <div class="checkbox"><input formControlName="allAssetFlag"
+                                             [checked]="f.allAssetFlag.value" id="checkbox1" (change)="assetFlagChange()" type="checkbox">
+                                          <label for="checkbox1"> All Asset </label></div>
+                                    </div>
+                                 </div>
+                              </div>       
+                              <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label class="control-label">
+                                          Department
+                                       </label>
+                                       <!-- <div class="input-group">
+                                          <span class="input-group-addon"><i class="ti ti-layout-slider"
+                                                aria-hidden="true"></i></span>
+                                          <select class="form-control form-control-line" formControlName="departmentId">
+                                             <option value='' disabled>--Select--</option>
+                                             <option *ngFor="let item of departments;" value="{{item.departmentId}}">
+                                                {{item.departmentName}}</option>
+                                          </select>
+                                       </div> -->
+                                       <div class="input-group">
+                                          <span class="input-group-addon"><i class="ion ion-clipboard"
+                                                aria-hidden="true"></i></span>
+                                          <div class="form-group form-control"
+                                             style="height: 100px;overflow:auto; padding:0;">
+                                             <li class="form-control custflag"  *ngIf="selectedDepartment" >{{selectedDepartment}}
+                                                <a (click)="removeDepartment()"><span class="ion ion-close-round cut_close"></span></a>
+                                            </li>
+                                          </div>
+                                          <span class="input-group-addon naviagte_span"><i (click)="opendepartmentPopUp()"
+                                                class="fa fa-external-link naviagte_arrow" aria-hidden="true"></i></span>
+                                       </div>
+                                    </div>
+                                 </div>                       
+                              <div class="col-md-12">
+                                 <div class="form-group required">
+                                    <label class="control-label">
+                                       Contact Name
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="ion ion-code-working"
+                                             aria-hidden="true"></i></span>
+                                       <!--   <input aria-describedby="addon-right addon-left" type="text" placeholder=" contact Person" class="form-control"> -->
+                                       <div class="form-group form-control"
+                                          style="height: 100px; overflow:auto; padding:0;">
+                                          <li class="form-control custflag" *ngFor="let item of selectedDests">
+                                             {{item.destinationName}}
+                                          <a (click)="removeDestination(item.destinationId)"><span class="ion ion-close-round cut_close"></span></a>
+                                         </li>
+                                          <li class="form-control custflag" *ngFor="let item of selectedGroups">
+                                             {{item.groupName}}
+                                             <a (click)="removeGroup(item.groupId)"><span class="ion ion-close-round cut_close"></span></a>
+                                          </li>
+                                       </div>
+                                       <span class="input-group-addon naviagte_span"><i (click)="openDestinationPopUp()"
+                                             class="fa fa-external-link naviagte_arrow" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div *ngIf="submitted && (selectedDests.length == 0 && selectedGroups.length == 0 )" class="invalid-feedback">
+                                       <div>Contact Name is required</div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-12">
+                                 <div class="form-group required">
+                                    <label class="control-label required">
+                                       Rules
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="ion ion-clipboard"
+                                             aria-hidden="true"></i></span>
+                                       <div class="form-group form-control"
+                                          style="height: 100px; overflow:auto; padding:0;">
+                                          <li class="form-control custflag" *ngFor="let item of selectedRules">{{item.ruleName}}
+                                             <a (click)="removeRule(item.ruleId)"><span class="ion ion-close-round cut_close"></span></a>
+                                         </li>
+                                       </div>
+                                       <span class="input-group-addon naviagte_span"><i (click)="openRulePopUp()"
+                                             class="fa fa-external-link naviagte_arrow" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div *ngIf="submitted && selectedRules.length == 0" class="invalid-feedback">
+                                       <div>Rules is required</div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row ">
+                              <div class="col-sm-12">
+                                 <span class="manadory text-left "><small style="color:red;font-size:15px; ">*</small> -
+                                    Required field </span>
+                              </div>
+                              <div class="text-right col-sm-12">
+                                 <button type="button"
+                                    class="btn btn-primary waves-effect waves-light" (click)="onSubmit()">{{buttonName}}</button>&nbsp;
+                                 <button type="button " class="btn btn-default waves-effect waves-light " (click)="clear()">Reset</button>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<router-outlet></router-outlet>
