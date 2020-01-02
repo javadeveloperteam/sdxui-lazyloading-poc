@@ -1,0 +1,86 @@
+<div class="fixed-left">
+    <div id="wrapper">
+        <app-header></app-header>
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+                <div id="sidebar-menu">
+                    <ul>
+                        <li id="DASHBOARD"> <a routerLinkActive="active"  routerLink="dashboard" class="waves-effect"><i class="ti-home"></i><span> Dashboard </span></a></li>
+                        <li id="PROFILE"> <a routerLinkActive="active"  routerLink="users/userProfile" (click)="navigateProfilePage('index/users/userProfile')" class="waves-effect "><i class="ti-id-badge"></i><span> Profile </span></a></li>
+                        
+                        <li class="has_sub" id="SDXMESSENGER">
+                            <a  routerLinkActive="active"  class="waves-effect"><i class="ion ion-email"></i> <span> SDxMessenger  </span> <span class="pull-right"><i class="mdi mdi-plus"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li id="USERS" routerLinkActive="active">  <a  routerLink="users" class="waves-effect "><i class="ion ion-person-stalker"></i><span> Users </span></a></li>
+                     <!--    <li> <a routerLinkActive="active" routerLink="customer" class="waves-effect "><i class="fa fa-user-secret"></i><span> Customer </span></a></li> -->
+                        <li id="CONFIGURATION" routerLinkActive="active"> <a  routerLink="configurations" class="waves-effect "><i class="ion ion-settings"></i><span> Configuration </span></a></li>
+                        <li id="DEPARTMENT" routerLinkActive="active"> <a  routerLink="departments" class="waves-effect "><i class="ti ti-layout-slider"></i><span> Department </span></a></li>
+                        <li id="DESTINATION" routerLinkActive="active"> <a  routerLink="destinations" class="waves-effect "><i class="ion ion-email"></i><span> Contact </span></a></li>
+                        <li id="GROUP" routerLinkActive="active"> <a  routerLink="groups" class="waves-effect "><i class="ion ion-aperture"></i><span> Group </span></a></li>
+                        <li id="SENDMESSAGE" routerLinkActive="active"> <a  routerLink="sendmessage" class="waves-effect "><i class="ti ti-comment-alt"></i><span> Send Message </span></a></li>
+                        <!-- <li routerLinkActive="active"> <a  routerLink="notificationstatus" class="waves-effect "><i class="ion ion-email-unread"></i><span> Notification Status </span></a></li> -->
+                        <li id="SCHEDULE" routerLinkActive="active"> <a  routerLink="schedules" class="waves-effect "><i class="fa fa-calendar"></i><span> Schedule </span></a></li>
+                            </ul>
+                        </li> 
+                       <li class="has_sub" id="SDXINTELLIGENCE">
+                            <a routerLinkActive="active" class="waves-effect"><i class="ion ion-android-bulb"></i> <span> SDxIntelligence </span> <span class="pull-right"><i class="mdi mdi-plus"></i></span></a>
+                            <ul id="list4" class="list-unstyled">
+                                    <!--<li class="has_sub" id="APPLICATION">
+                                         <a routerLinkActive="active" routerLink="sdxintelligence/applications" class="waves-effect"><i class="ion ion-clipboard"></i> Application <span class="pull-right"><i class="mdi mdi-plus"></i></span></a>
+                                            <ul class="list-unstyled">
+                                                    <li routerLinkActive="active" id="lisid"> <a  routerLink="sdxintelligence/events" data-pos="sub-nav" class="waves-effect "><i class="ti ti-calendar"></i>Event</a></li>
+                                                    <li routerLinkActive="active" > <a  routerLink="sdxintelligence/eventvariables" data-pos="sub-nav" class="waves-effect "><i class="ion ion-asterisk"></i>Event Variable</a></li>
+                                                </ul>
+                                        </li>
+                                        <li class="has_sub" id="ASSET">
+                                                <a routerLinkActive="active" routerLink="sdxintelligence/asset/assetlist" class="waves-effect"><i class="ion ion-briefcase"></i> Asset <span class="pull-right"><i class="mdi mdi-plus"></i></span></a>
+                                                   <ul class="list-unstyled">
+                                                        <li routerLinkActive="active"> <a routerLink="sdxintelligence/location/locationlist" data-pos="sub-nav" class="waves-effect "><i class="ion ion-ios-location"></i><span> Location</span></a></li>
+                                                       </ul>
+                                               </li> -->
+                                     <li routerLinkActive="active" id="APPLICATION"> <a  routerLink="sdxintelligence/applications" class="waves-effect "><i class="ti ti-clipboard"></i>Application</a></li>		   
+                                     <li routerLinkActive="active" id="lisid"> <a  routerLink="sdxintelligence/events" class="waves-effect "><i class="ti ti-calendar"></i>Event</a></li>
+                                    <li routerLinkActive="active" id="EVENTV"> <a  routerLink="sdxintelligence/eventvariables"  class="waves-effect "><i class="ion ion-asterisk"></i>Event Variable</a></li>			   
+                                    <li routerLinkActive="active"id="ASSET"> <a routerLink="sdxintelligence/assets" class="waves-effect "><i class="ti ti-briefcase"></i><span> Asset</span></a></li>	   
+                                    <li routerLinkActive="active" id="LOCATION"> <a routerLink="sdxintelligence/locations" class="waves-effect "><i class="ti ti-location-pin"></i><span> Location</span></a></li>		   
+                                    <!-- <li routerLinkActive="active"> <a routerLink="sdxintelligence/notificationstatus-wms" class="waves-effect "><i class="ion ion-email-unread"></i><span> Notification Status </span></a></li>
+                                    <li routerLinkActive="active"> <a routerLink="sdxintelligence/eventstatus" class="waves-effect "><i class="ion ion-android-calendar"></i><span> Event Status </span></a></li> -->
+                                   <!--  <li routerLinkActive="active"> <a routerLink="sdxintelligence/location/locationlist" class="waves-effect "><i class="ion ion-ios-location"></i><span> Location</span></a></li>
+                                    <li routerLinkActive="active"> <a routerLink="sdxintelligence/asset/assetlist" class="waves-effect "><i class="ti ti-briefcase"></i><span> Asset</span></a></li>                                   -->
+                                    <li id="RULE" routerLinkActive="active" > <a  routerLink="sdxintelligence/rules" class="waves-effect "><i class="ti ti-ruler-pencil"></i><span> Rule</span></a></li>
+                                    <li id="POLICY" routerLinkActive="active" > <a routerLink="sdxintelligence/policies" class="waves-effect "><i class="ti ti-agenda"></i><span> Policy</span></a></li>
+                                    <li id="CLIENTADAPTER" routerLinkActive="active" > <a routerLink="sdxintelligence/clientadapter" class="waves-effect "><i class="fa fa-plug"></i><span> Client Adapter</span></a></li>
+                                    <li id="MESSAGEBLOCKING" routerLinkActive="active" > <a routerLink="sdxintelligence/messageblocking" class="waves-effect "><i class="ti ti-widget"></i><span> Message Blocking</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub" id="SDXSPLASHER">
+                            <a routerLinkActive="active" class="waves-effect"><i class="ion ion-android-notifications"></i> <span> SDxSplasher </span> <span class="pull-right"><i class="mdi mdi-plus"></i></span></a>
+                            <ul class="list-unstyled">
+                                    <li id="NOTIFICATIONSTATUS" routerLinkActive="active"> <a routerLink="splasher/notification" class="waves-effect "><i class="ion ion-email-unread"></i><span> Notification Status </span></a></li>
+                                    <li id="EVENTSTATUS" routerLinkActive="active"> <a routerLink="sdxintelligence/eventstatus" class="waves-effect "><i class="ion ion-android-calendar"></i><span> Event Status </span></a></li>
+                            </ul>
+                        </li>
+                       
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion ion-close-round"></i></button>
+                        <h4 class="modal-title" id="mySmallModalLabel">Log out</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You will be returned to the login screen.</p>
+                    </div>
+                    <div class="modal-footer"> <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cencel</button> <a href="pages_login.html" type="button" class="btn btn-primary waves-effect waves-light">Log out</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
