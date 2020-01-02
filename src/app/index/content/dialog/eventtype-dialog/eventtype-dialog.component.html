@@ -1,0 +1,106 @@
+  <h4 class="page-title matheader" >EVENT TYPE
+   <button class="mattext-danger" mat-dialog-close>X</button>
+</h4>
+<mat-dialog-content>
+  <app-common [showLoader]="showLoader">
+  </app-common>
+  <div class="row">
+    <div class="col-lg-12">
+
+      <form class="form-horizontal " [formGroup]="referenceForm">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group required">
+              <label class="control-label">
+                Event Type Name
+              </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="ion ion-network" aria-hidden="true"></i></span>
+                <input aria-describedby="addon-right addon-left" type="text" formControlName="fieldValue" placeholder="Enter Event Type Name"
+                  class="form-control">
+              </div>
+              <div *ngIf="submitted && f.fieldValue.errors" class="invalid-feedback">
+              <div *ngIf="f.fieldValue.errors.required">Event Type Name
+                  is required</div>
+          </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-12">
+            <div class="form-group ">
+              <label class="control-label">
+                Event Type Description
+              </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="ti ti-list" aria-hidden="true"></i></span>
+                <textarea class="form-control" formControlName="comments" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-sm-12">
+            <span class="manadory text-left "><small style="color:red;font-size:15px; ">*</small> - Required field
+            </span>
+          </div>
+          <div class="text-right col-sm-12">
+            <button type="button " class="btn btn-primary waves-effect waves-light " (click)="saveReferenceData()">Save</button>&nbsp;
+            <button type="button " class="btn btn-default1 waves-effect waves-light " (click)="close()">Close</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+  <h4 class="pull-left page-title">Event Type Listing</h4>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="mat-elevation-z8 example-container table-responsive cus-eventMD mb10">
+                    <mat-table [dataSource]="dataSource" matSort matSortActive='fieldId' matSortDirection='desc' matSortDisableClear>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="fieldId">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Event Type Id
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.fieldId}} </mat-cell>
+                        </ng-container>
+                        <!-- Application Name Column -->
+                        <ng-container matColumnDef="fieldValue">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Event Type Name
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.fieldValue}} </mat-cell>
+                         </ng-container>
+                        <!-- Created By Column -->
+                        <ng-container matColumnDef="comments">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Event Type Description
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.comments}} </mat-cell>
+                        </ng-container>
+                        <!--<ng-container matColumnDef="Action">
+                            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <i class="ti ti-pencil-alt edit-blue"
+                                  title="Edit"
+                                  (click)="editEvent(row.applicationId, row.eventId)"></i>
+                              &nbsp;
+                                <i class="ti ti-trash del-red" title="Delete"
+                                    (click)="deleteEventPopUp(row)"></i>
+                            </mat-cell>
+                        </ng-container> --> <!--  -->
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </mat-row>
+                    </mat-table>
+                    <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                    <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>                        
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                </div>              
+          
+    </div>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <!--<button mat-button [mat-dialog-close]="true" style="background-color:#1BB9D5; color: cornsilk;"
+    cdkFocusInitial>CLOSE</button>-->
+</mat-dialog-actions>

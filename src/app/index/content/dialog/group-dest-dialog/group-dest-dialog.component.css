@@ -1,0 +1,10 @@
+.nav-tabs {
+    background: #ddd;
+    border-top: 1px solid #dddddd;
+}
+
+a.tab-disable{
+    pointer-events: none;
+    opacity: 0.5;
+    background: #CCC;
+}

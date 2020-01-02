@@ -1,0 +1,398 @@
+<app-common [showLoader]="showLoader">
+    </app-common>
+    <div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header-title">
+                        <h4 class="pull-left page-title">Group</h4>
+                        <!--<ol class="breadcrumb pull-right">
+                            <li><a href="pages_index.html">Dashboard</a></li>
+                            <li class="active">Users</li>
+                            <li class="active">Create New Customer</li>
+                        </ol>-->
+                        <div class="clearfix">
+						<a routerLink="/index/groups" class=" pull-right icon-create ">
+                                       <i class="ti ti-layout-media-left	createnew"></i> 
+                                    </a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="col-lg-12 col-xlg-12 col-md-12">                                
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <ul class="nav nav-tabs navtab-bg">
+                                            <li class="active">
+                                                <a href="#addgroup" data-toggle="tab" aria-expanded="true"> <span
+                                                        class=""><i class="ion ion-person-stalker"></i></span> <span
+                                                        class="hidden-xs"> Add New Group</span> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#addmember" data-toggle="tab"
+                                                    [ngClass]="{ 'tab-disable': disablemember}" aria-expanded="false">
+                                                    <span class=""><i class="ion ion-person-add"></i></span> <span
+                                                        class="hidden-xs"> Add New Contact</span> </a>
+                                            </li>
+
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="addgroup">
+
+                                                <form class="form-horizontal" role="Form" [formGroup]="groupForm">
+                                                    <div class="row">
+
+
+                                                        <div class="col-md-8">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Group Name
+                                                                </label>
+                                                                <div class="input-group"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.groupName.errors }">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ion ion-android-contacts"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <input aria-describedby="addon-right addon-left"
+                                                                        type="email" placeholder="Group Name"
+                                                                        class="form-control"
+                                                                        formControlName="groupName">
+                                                                </div>
+                                                                <div *ngIf="submitted && f.groupName.errors"
+                                                                    class="invalid-feedback">
+                                                                    <div *ngIf="f.groupName.errors.required">Group Name
+                                                                        is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Status
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ti ti-bar-chart"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <select class="form-control form-control-line"
+                                                                        formControlName="active">
+                                                                        ] <option value="true">Active</option>
+                                                                        <option value="false">In Active</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                       <!--  <div class="col-md-6">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Contact Type
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ion ion-merge"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <select class="form-control form-control-line"
+                                                                        formControlName="type" [attr.disabled]="disablemember ? null : ''">
+                                                                        <option value="SMS">SMS</option>
+                                                                        <option value="Email">Email</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                        <div class="col-md-2">
+                                                            <div class="form-group ">
+                                                                <label class="control-label" style="visibility:hidden">
+                                                                    Broadcast
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <div> <input id="checkbox1"
+                                                                            type="radio" name="escalation" 
+                                                                            [checked]="broadcast"  value="checkbox1" (click)="radioActive(false)"> <label
+                                                                            for="checkbox1">
+                                                                            Broadcast </label>
+                                                                        </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group ">
+    
+                                                                <label class="control-label" style="visibility:hidden">
+                                                                    Escalation
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <div > <input id="checkbox2"
+                                                                            type="radio" name="escalation" 
+                                                                            [checked]="eacalation" 
+                                                                           value="checkbox2" (change)="radioActive(true)"> <label
+                                                                            for="checkbox2"  >
+                                                                            Escalation </label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <!-- <div class="col-md-2">
+                                                            <div class="form-group ">
+                                                                <label class="control-label" style="visibility:hidden">
+                                                                    Escalation
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <div class="checkbox"> <input id="checkbox1"
+                                                                            type="checkbox" formControlName="escalation"
+                                                                            [checked]="f.escalation.value"> <label
+                                                                            for="checkbox1">
+                                                                            Escalation </label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                        <div class="col-md-2" *ngIf="escActive">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Wait Time
+                                                                </label>
+                                                                <div class="input-group"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.escalation.value && f.escalationInterval.errors }">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ion ion-android-time"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <input aria-describedby="addon-right addon-left"
+                                                                        type="number" placeholder="time"
+                                                                        class="form-control" max="30" min="0"
+                                                                        formControlName="escalationInterval">
+                                                                </div>
+                                                                <div *ngIf="submitted && f.escalationInterval.errors"
+                                                                    class="invalid-feedback">
+                                                                    <div
+                                                                        *ngIf="f.escalationInterval.errors.required && f.escalation.value">
+                                                                        Wait Time
+                                                                        is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6" *ngIf="escActive">
+                                                            <div class="form-group required">
+                                                                <label class="control-label" style="visibility:hidden">
+                                                                    Minutes for acknowledgement before escaltion to next
+                                                                    member
+                                                                </label>
+                                                                <div class="input-group" style="padding-top:10px;">
+                                                                    <div class=""> <label for=""> Minutes for
+                                                                            acknowledgement before escalation to next
+                                                                            member </label></div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group ">
+                                                                <label class="control-label">
+                                                                    Comments
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ti ti-list"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <textarea class="form-control"
+                                                                        id="exampleFormControlTextarea1" rows="3"
+                                                                        formControlName="comments"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane" id="addmember">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Group Name
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ti ti-layout-menu-v"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <input aria-describedby="addon-right addon-left"
+                                                                        type="email" placeholder="Group Name"
+                                                                        class="form-control" value={{f.groupName.value}}
+                                                                        disabled=true>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                  <!--       <div class="col-md-6">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Contact Type
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ti ti-layout-menu-v"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <input aria-describedby="addon-right addon-left"
+                                                                        type="email" placeholder="Contact Type"
+                                                                        class="form-control" value={{f.type.value}}
+                                                                        disabled=true>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                        
+                                                        <div class="col-md-4">
+                                                            <div class="form-group required">
+                                                                <label class="control-label">
+                                                                    Status
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i
+                                                                            class="ti ti-bar-chart"
+                                                                            aria-hidden="true"></i></span>
+                                                                    <select class="form-control form-control-line"
+                                                                        value={{f.active.value}} disabled=true>
+                                                                        <option value="true">Active</option>
+                                                                        <option value="false">In Active</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row ">
+                                                       <!--  <div class="col-sm-12">
+                                                            <span class="manadory text-left "><small
+                                                                    style="color:red;font-size:15px; ">*</small> -
+                                                                Required field </span>
+                                                        </div> --><br>
+                                                        <div class="text-right col-sm-12">
+                                                            <button type="button "
+                                                                class="btn btn-primary waves-effect waves-light "
+                                                                (click)="openDestinationPopUp();">Add
+                                                                Contact</button>&nbsp;
+                                                           <!--  <button type="button "
+                                                                class="btn btn-primary waves-effect waves-light "
+                                                                (click)="openGroupPopUp()">Add
+                                                                Group</button>&nbsp; -->
+                                                            <!-- <button type="button "
+                                                                class="btn btn-default waves-effect waves-light ">Cancel</button> -->
+                                                        </div>
+                                                    </div><br>
+                                                    <h4>Group Members Listing</h4>
+                                                    <div class="pull-right"> <span class="manadory text-left "><small
+                                                        style="color:red;font-size:15px; ">**</small>
+                                                        Priority can be defined by drag & drop option </span></div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">                                                          
+                                                                <!--     <mat-form-field>
+                                                                        <input class="search" matInput type="text"
+                                                                            (keyup)="applyFilter($event.target.value)"
+                                                                            placeholder="Enter Category Name">
+                                                                    </mat-form-field> -->
+
+                                                                    <div class="example-container mat-elevation-z8">
+                                                                        <mat-table [dataSource]="dataSource" #table matSort
+                                                                            cdkDropList [cdkDropListData]="dataSource"
+                                                                            (cdkDropListDropped)="dropTable($event)">
+                                                                            <!-- ID Column -->
+                                                                            <ng-container matColumnDef="Entity Id">
+                                                                                <mat-header-cell *matHeaderCellDef
+                                                                                    mat-sort-header>Entity Id
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">
+                                                                                    {{row.entityId}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <!-- Department Name Column -->
+                                                                            <ng-container matColumnDef="Entity Name">
+                                                                                <mat-header-cell *matHeaderCellDef
+                                                                                    mat-sort-header> Entity Name
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">
+                                                                                    {{row.entityName}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <!-- Active Column -->
+                                                                            <ng-container matColumnDef="Active">
+                                                                                <mat-header-cell *matHeaderCellDef
+                                                                                    mat-sort-header> Status
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">
+                                                                                    <!--<span *ngIf=row.active
+                                                                                        class="badge badge-success">{{row.active}}</span>
+                                                                                    <span *ngIf=!row.active
+                                                                                        class="badge badge-danger">{{row.active}}</span>-->
+                                                                                  <span *ngIf = row.active class="badge label-success-custom">Active</span>
+                                                                                  <span *ngIf = !row.active class="badge label-danger">In Active</span>
+                                                                                </mat-cell>
+                                                                            </ng-container>
+                                                                            <!-- EntityType Column -->
+                                                                            <ng-container matColumnDef="Entity">
+                                                                                <mat-header-cell *matHeaderCellDef
+                                                                                    mat-sort-header> Entity
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">
+                                                                                    {{row.entityType}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <!-- Type By Column -->
+                                                                            <ng-container matColumnDef="Type">
+                                                                                <mat-header-cell *matHeaderCellDef
+                                                                                    mat-sort-header> Type
+                                                                                </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">
+                                                                                    {{row.type}} </mat-cell>
+                                                                            </ng-container>
+                                                                            <ng-container matColumnDef="Action">
+                                                                                <mat-header-cell *matHeaderCellDef>
+                                                                                    Action </mat-header-cell>
+                                                                                <mat-cell *matCellDef="let row">
+                                                                                    &nbsp;
+                                                                                    <i class="ti ti-trash del-red"
+                                                                                        title="Delete"
+                                                                                        (click)="deleteMember(row.entityId)"></i>
+                                                                                </mat-cell>
+                                                                            </ng-container>
+                                                                            <mat-header-row
+                                                                                *matHeaderRowDef="displayedColumns">
+                                                                            </mat-header-row>
+                                                                            <mat-row
+                                                                                *matRowDef="let row; columns: displayedColumns;"
+                                                                                cdkDrag [cdkDragData]="row">
+                                                                            </mat-row>
+                                                                        </mat-table>
+                                                                        <div class='table-grid-msg' *ngIf='dataSource != null && dataSource.length === 0'>No Records Found</div>
+                                                                    </div>                                                               
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12">
+                                        <span class="manadory text-left "><small
+                                                style="color:red;font-size:15px; ">*</small> -
+                                            Required field </span>
+                                    </div>
+                                    <div class="text-right col-sm-12">
+                                        <button type="button" class="btn btn-primary waves-effect waves-light "
+                                            (click)="onSubmit();">{{buttonName}}</button>&nbsp;
+                                        <button type="button " class="btn btn-default waves-effect waves-light "
+                                            (click)="reset();">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>

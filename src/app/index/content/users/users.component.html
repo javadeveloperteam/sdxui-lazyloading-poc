@@ -1,0 +1,453 @@
+<app-common [showLoader]="showLoader"></app-common>
+<div class="content-page">
+   <div class="content">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="page-header-title">
+                  <h4 class="pull-left page-title">{{screenTitle}}</h4>
+                  <!--  <ol class="breadcrumb pull-right">
+                     <li><a href="pages_index.html">Dashboard</a></li>
+                     <li class="active">Users</li>
+                     <li class="active">Create New</li>
+                  </ol> -->
+                  <div class="clearfix"><a (click)="back()" data-toggle="tooltip" title="Manage User"
+                        *ngIf="userRole != 'User'" class="pull-right icon-create ng-star-inserted">
+                        <i class="ti ti-layout-media-left	createnew"></i>
+                     </a></div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="panel panel-primary">
+                  <div class="panel-body">
+                     <div class="col-lg-12 col-xlg-12 col-md-12">
+                        <div class="row">
+                           <!-- <a (click)="back()" *ngIf="userRole != 'User'" class="btn btn-success pull-right">
+                              Manage Users
+                           </a> -->
+                        </div>
+                        <form class="form-horizontal" [formGroup]="usersForm" (ngSubmit)="onSubmit()">
+                           <div class="row">
+                              <div class="col-lg-3 col-xlg-3 col-md-3">
+                                 <div class="card">
+                                    <div class="card-block center-block">
+                                       <div class="m-t-30 profile_pic text-center">
+                                          <div class="small-12 medium-2 large-2 columns ">
+                                             <div *ngIf="profileImageURL" class="circle" style="inline-block">
+                                                <img [src]="profileImageURL" class="img-circle profile-pic" width="150"
+                                                   accept="image/*" />
+                                             </div>
+                                             <div *ngIf="!profileImageURL" class="circle" style="inline-block ">
+                                                <img src="assets/images/users/avatar.jpg" class="img-circle profile-pic"
+                                                   width="150" />
+                                             </div>
+                                          </div>
+                                          <h4 class="card-title m-t-10">{{f.userName.value}}</h4>
+                                          <h6 class="card-subtitle">
+                                             <small>Role: </small>
+                                             <strong>{{f.roleName.value}}</strong>
+                                          </h6>
+                                          <div class="">
+                                             <i class="ti ti-pencil-alt edit-blue" (click)="profilePic.click()"></i>
+                                             <input #profilePic class="file-upload" type="file" accept="image/*"
+                                                (change)="processProfile($event)" />
+                                             &nbsp;
+                                             <i *ngIf="profileImageURL" class="ti ti-trash del-red"
+                                                (click)="deleteProfilePic()"></i>
+                                             <div *ngIf="profileType=='in-valid'" class="invalid-feedback">
+                                                *.png,.jpg file required
+                                             </div>
+                                             <div *ngIf="profileSize=='in-valid'" class="invalid-feedback">
+                                                &lt;100Kb required
+                                             </div>
+                                          </div>
+                                       </div><br>
+                                    </div>
+                                    <div class="panel panel-color panel-primary mb10 cuspanel">
+                                       <div class="panel-heading">
+                                          <h3 class="panel-title">Contact</h3>
+                                       </div>
+                                       <div class="panel-body block-with-text">
+                                          <div>
+                                             <p *ngIf="destinations.length == 0">No Contacts</p>                                           
+                                                  <ul>
+                                                    <li *ngFor="let item of destinations; let i = index" [attr.data-index]="i">
+                                                         <i>{{item.destinationName}}</i>
+                                                   </li>
+                                               </ul>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="panel panel-color panel-primary mb10 cuspanel">
+                                       <div class="panel-heading">
+                                          <h3 class="panel-title">Schedule</h3>
+                                       </div>
+                                       <div class="panel-body block-with-text">
+                                             <div>
+                                                   <p *ngIf="schedules.length == 0">No Schedules</p>                                           
+                                                        <ul>
+                                                          <li *ngFor="let item of schedules; let i = index" [attr.data-index]="i">
+                                                               <i>{{item.scheduleName}}</i>
+                                                         </li>
+                                                     </ul>
+                                                </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <br>
+                              </div>
+                              <div class="col-lg-9 col-xlg-9 col-md-9">
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">User Name </label>
+                                          <div>
+                                             <div class="input-group"
+                                                [ngClass]="{ 'is-invalid': submitted && f.userName.errors }">
+                                                <span class="input-group-addon"><i class="mdi mdi-account"
+                                                      aria-hidden="true"></i></span>
+                                                <input type="text" formControlName="userName"
+                                                   placeholder="Enter User Name" class="form-control form-control-line"
+                                                   [attr.disabled]="disableProfilePageTag || disableEditPageTag ? '' : null">
+                                                <!-- <span class="input-group-addon-man">*</span> -->
+                                             </div>
+                                             <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                                                <div *ngIf="f.userName.errors.required">User Name is required</div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             Status
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" ti ti-bar-chart"
+                                                   aria-hidden="true"></i></span>
+                                             <select class="form-control form-control-line" formControlName="active"
+                                                [attr.disabled]="currentPage == 'add' ? '' : null">
+                                                <option value="true">Active</option>
+                                                <option value="false">In Active</option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             First Name
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class="mdi mdi-account-box"
+                                                   aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="text"
+                                                formControlName="firstName" placeholder="Enter First Name"
+                                                class="form-control">
+                                          </div>
+                                          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                             <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group ">
+                                          <label class="control-label">
+                                             Last Name
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" mdi mdi-account-box-outline"
+                                                   aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="text"
+                                                formControlName="lastName" placeholder="Enter Last Name"
+                                                class="form-control">
+                                          </div>
+                                          <div *ngIf="submitted && f.firstName.errors" style="visibility: hidden;"
+                                             class="invalid-feedback">
+                                             <div *ngIf="f.firstName.errors.required">Last Name is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label for="example-email" class="control-label">Employee ID </label>
+                                          <div class="input-group" aria-disabled="true">
+                                             <span class="input-group-addon"><i class="ti-id-badge"
+                                                   aria-hidden="true"></i></span>
+                                             <input type="text" formControlName="employeeId"
+                                                placeholder="Enter Employee ID" class="form-control form-control-line"
+                                                [attr.disabled]="disableProfilePageTag || disableEditPageTag ? '' : null">
+                                          </div>
+                                          <div *ngIf="submitted && f.employeeId.errors" class="invalid-feedback">
+                                             <div *ngIf="f.employeeId.errors.required">Employee Id is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group">
+                                          <label class="control-label">Department </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" mdi mdi-collage"
+                                                   aria-hidden="true"></i></span>
+                                             <select class="form-control form-control-line"
+                                                formControlName="departmentId">
+                                                <option value=null disabled>--Select--</option>
+                                                <option *ngFor="let department of departmentList;"
+                                                   value="{{department.departmentId}}">{{department.departmentName}}
+                                                </option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                    </div>
+
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">Role </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" mdi mdi-settings-box"
+                                                   aria-hidden="true"></i></span>
+                                             <select class="form-control form-control-line" formControlName="roleName"
+                                                [attr.disabled]="disableProfilePageTag ? '' : null">
+                                                <option value="Admin">Administrator</option>
+                                                <option value="Supervisor">Supervisor</option>
+                                                <option value="User">User</option>
+                                             </select>
+                                          </div>
+                                          <div *ngIf="submitted && f.roleName.errors" class="invalid-feedback">
+                                             <div *ngIf="f.roleName.errors.required">Role Name is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             Email ID
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" mdi  mdi-email"
+                                                   aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="email"
+                                                formControlName="emailId" placeholder="Enter Email"
+                                                class="form-control">
+                                          </div>
+                                          <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
+                                             <div *ngIf="f.emailId.errors.required">Email Id is required</div>
+                                             <div *ngIf="f.emailId.errors && f.emailId.errors.pattern">Invalid EmailId
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-1 col-xs-4 mobile">
+                                       <div class="form-group required" style="width: 60px;">
+                                          <label class="control-label">
+                                             Mobile
+                                          </label>
+                                          <div class="input-group">
+                                             <input aria-describedby="addon-right addon-left" type="text"
+                                                class="form-control" formControlName="countryCode">
+                                          </div>
+                                          <div *ngIf="submitted && f.countryCode.errors" class="invalid-feedback">
+                                             <div *ngIf="f.countryCode.errors.required">Country Code is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                       <div class="form-group required">
+                                          <label class="control-label" style="visibility:hidden">
+                                             Mobile
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" mdi mdi-cellphone-settings"
+                                                   aria-hidden="true"></i></span>
+                                             <!--  <input aria-describedby="addon-right addon-left" type="text" class="form-control" formControlName="countryCode"> -->
+                                             <input aria-describedby="addon-right addon-left" type="text" maxlength="10"
+                                                formControlName="mobileNo" placeholder="Enter Mobile No"
+                                                class="form-control input-mobile-number">
+                                          </div>
+                                          <div *ngIf="submitted && f.mobileNo.errors" class="invalid-feedback">
+                                             <div *ngIf="f.mobileNo.errors.required">Mobile Number is required</div>
+                                             <div *ngIf="f.mobileNo.errors.pattern">Invalid Mobile number</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             Address Line1
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" mdi mdi-account-location"
+                                                   aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="text"
+                                                formControlName="addressLine1" placeholder="Enter Address Line1"
+                                                class="form-control">
+                                          </div>
+                                          <div *ngIf="submitted && f.addressLine1.errors" class="invalid-feedback">
+                                             <div *ngIf="f.addressLine1.errors.required">Address Line1 is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group">
+                                          <label class="control-label">
+                                             Address Line2
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" mdi mdi-account-location"
+                                                   aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="text"
+                                                formControlName="addressLine2" placeholder="Enter Address Line2"
+                                                class="form-control">
+                                          </div>
+                                          <div *ngIf="submitted && f.firstName.errors" style="visibility: hidden;"
+                                             class="invalid-feedback">
+                                             <div *ngIf="f.firstName.errors.required">Last Name is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             Country
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" ti ti-world"
+                                                   aria-hidden="true"></i></span>
+                                             <select class="form-control form-control-line" formControlName="country"
+                                                (change)="loadStates(f.country.value,false)">
+                                                <option value="" disabled>--Select--</option>
+                                                <option *ngFor="let country of countryList;"
+                                                   value="{{country.country}}">
+                                                   {{country.countryName}}</option>
+                                             </select>
+                                          </div>
+                                          <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                             <div *ngIf="f.country.errors.required">Country is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+
+                                          <label class="control-label">
+                                             State
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" fa fa-university"
+                                                   aria-hidden="true"></i></span>
+                                             <select class="form-control form-control-line" formControlName="state"
+                                                (change)="loadCities(f.country.value,f.state.value,false)">
+                                                <option value="" disabled>--Select--</option>
+                                                <option *ngFor="let state of stateList;" value="{{state.state}}">
+                                                   {{state.stateName}}</option>
+                                             </select>
+                                          </div>
+                                          <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                                             <div *ngIf="f.state.errors.required">State is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             City
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class="fa fa-building"
+                                                   aria-hidden="true"></i></span>
+                                             <select class="form-control form-control-line" formControlName="city"
+                                                (change)="setZipCode(f.city.value)">
+                                                <option value="" disabled>--Select--</option>
+                                                <option *ngFor="let city of cityList;" value="{{city.city}}">
+                                                   {{city.city}}
+                                                </option>
+                                             </select>
+                                          </div>
+                                          <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                             <div *ngIf="f.city.errors.required">City is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             Location
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" ti ti-location-arrow"
+                                                   aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="text"
+                                                formControlName="location" placeholder="Enter Location"
+                                                class="form-control">
+                                          </div>
+                                          <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                                             <div *ngIf="f.location.errors.required">Location is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-group required">
+                                          <label class="control-label">
+                                             Zipcode
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class=" ti ti-location-arrow"
+                                                   aria-hidden="true"></i></span>
+                                             <input aria-describedby="addon-right addon-left" type="text"
+                                                formControlName="zipCode" placeholder="Enter Zip Code"
+                                                class="form-control">
+                                          </div>
+                                          <div *ngIf="submitted && f.zipCode.errors" class="invalid-feedback">
+                                             <div *ngIf="f.zipCode.errors.required">ZipCode is required</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                       <div class="form-group">
+                                          <label class="control-label">
+                                             Comments
+                                          </label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><i class="ti ti-list"
+                                                   aria-hidden="true"></i></span>
+                                             <textarea class="form-control" formControlName="comments"
+                                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row ">
+                              <div class="col-sm-12">
+                                 <span class="manadory text-left "><small style="color:red;font-size:15px; ">*</small> -
+                                    Required field </span>
+                              </div>
+                              <div class="text-right col-sm-12">
+                                 <button type="submit" *ngIf="currentPage=='add'"
+                                    class="btn btn-primary waves-effect waves-light">Create</button>&nbsp;
+                                 <button type="submit" *ngIf="currentPage=='edit' || currentPage=='userProfile'"
+                                    class="btn btn-primary waves-effect waves-light">Update</button>&nbsp;
+                                 <button type="button" class="btn btn-default waves-effect waves-light"
+                                    (click)="cancel()">Reset</button>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<router-outlet></router-outlet>

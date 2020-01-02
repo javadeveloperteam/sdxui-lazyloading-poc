@@ -1,0 +1,31 @@
+@import "../../../../../node_modules/@ng-select/ng-select/themes/default.theme.css";
+
+.ng-select .ng-select-container
+{
+    border:none !important;
+    min-height:0px !important;
+}
+.ng-value-container
+{
+    padding-top : 0 !important;
+}
+.input-group .form-control {
+    position: relative;
+    z-index: auto;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+.upload-file label{
+    padding: 10px;
+    background: rgb(109, 200, 236); 
+    display: table;
+    color: #fff;
+    cursor: pointer;
+     }
+
+
+
+input[type="file"] {
+    display: none;
+}

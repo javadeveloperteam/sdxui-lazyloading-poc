@@ -1,0 +1,50 @@
+  <h4 class="page-title matheader" >{{department?.departmentName}} - USER LIST
+   <button class="mattext-danger" mat-dialog-close>X</button>
+</h4>
+<mat-dialog-content>
+    <div class="col-sm-12">
+
+                <div class="mat-elevation-z8 example-container table-responsive mb10 mt10 CalView">
+                        <mat-table [dataSource]="dataSource" matSort matSortActive='userName' matSortDirection='asc' matSortDisableClear>
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="userName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>User Name
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.userName}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Department Name Column -->
+                           
+                                <!-- Occurrence Type Column -->
+                                <ng-container matColumnDef="employeeId">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Id
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.employeeId}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="departmentName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Department Name                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.departmentName}} </mat-cell>
+                                    </ng-container>
+
+                                <ng-container matColumnDef="active">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">
+                                                <span *ngIf = row.active><img alt="user-img" class="" src="assets/images/active.jpg"></span>
+                                                <span *ngIf = !row.active><img alt="user-img" class="" src="assets/images/inactive.jpg"></span>	                                        
+                                         </mat-cell>
+                                    </ng-container>
+                
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </mat-row>
+                            </mat-table>
+                            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>  
+
+                </div>
+    </div>
+
+</mat-dialog-content>

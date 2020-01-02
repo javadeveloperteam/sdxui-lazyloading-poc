@@ -1,0 +1,89 @@
+  <h4 class="page-title matheader" >CALENDAR VIEW
+   <button class="mattext-danger" mat-dialog-close>X</button>
+</h4>
+<mat-dialog-content>
+    <div class="col-sm-12">
+ 
+                <div class="row mb10">
+                    <div class="col-sm-11 col-md-11 mt10">
+                        <h5 class="page-title">Schedule Data</h5>
+                    </div>                   
+                </div>
+               
+                    <div class="col-sm-12" style="margin-bottom: 10px;">
+                        <div class="col-sm-6"><b>Schedule Id: </b>
+                            {{schedule.scheduleId}}</div>
+                        <div class="col-sm-6"><b>Schedule Name: </b>
+                            {{schedule.scheduleName}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom: 10px;">
+                        <div class="col-sm-6"><b>Schedule Type: </b>
+                            {{schedule.occurrenceType}}</div>
+                        <div class="col-sm-6"><b>Status: </b>
+                            <span *ngIf="schedule.active" class="badge badge-success">Active</span>
+                            <span *ngIf="!schedule.active" class="badge badge-danger">In Active</span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12" style="margin-bottom: 10px;">
+                        <div class="col-sm-6"><b>Created By: </b>
+                            {{schedule.createdByName}}
+                        </div>
+                        <div class="col-sm-6"><b>Created Date: </b>
+                            {{schedule.createdOn | date:'medium'}}</div>
+                    </div>
+                    <div class="row mt10" style="margin-bottom: 15px;">
+                        <h5 class="page-title">Associated Users</h5>
+                        <div class="mat-elevation-z8 example-container table-responsive mt10 caldayView">
+                            <mat-table [dataSource]="dataSource" matSort>
+                                <ng-container matColumnDef="schedule">
+                                    <mat-header-cell *matHeaderCellDef> Schedule Name</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.scheduleName}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="userName">
+                                    <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="groupName">
+                                    <mat-header-cell *matHeaderCellDef> Group Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.groupName}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="entity">
+                                    <mat-header-cell *matHeaderCellDef> Entity </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.entity}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="occurrenceType">
+                                    <mat-header-cell *matHeaderCellDef> Schedule Type </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.occurrenceType}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="startDate">
+                                    <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.startDate}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="endDate">
+                                    <mat-header-cell *matHeaderCellDef> End Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.endDate}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="scheduleTime">
+                                    <mat-header-cell *matHeaderCellDef> Schedule Time </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.scheduleTime}} </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row">
+                                </mat-row>
+                            </mat-table>
+                            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records
+                                Found</div>
+                            <div class='table-grid-msg'
+                                *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>
+                                No
+                                Matching Records Found</div>
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                        </div>
+                    </div>
+                
+           
+    </div>
+
+</mat-dialog-content>

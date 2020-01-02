@@ -1,0 +1,123 @@
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header-title">
+                        <h4 class="pull-left page-title">Notification Status</h4>
+                        <!-- <ol class="breadcrumb pull-right">
+                            <li><a href="pages_index">Dashboard</a></li>
+                            <li class="active">Users</li>
+                            <li class="active">Manage Users</li>
+                        </ol>-->
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                                <!--<mat-form-field>
+                                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                    <input class="search" matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Enter Message">
+                                    </mat-form-field>-->
+                          <div class="row">                            
+									<div class="col-md-3 mb2">
+									<div class="inner-addon right-addon mt10 mb10"> 
+									<input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Event Name..." />
+									<a  class="list-search"><i class="fa fa-search"></i></a>
+									</div>
+									</div>							
+									</div>
+
+                            <div class="mat-elevation-z8 example-container table-responsive">
+                                <mat-table [dataSource]="dataSource" matSort matSortActive='messageId' matSortDirection='desc' matSortDisableClear>
+                                    <!-- ID Column -->
+                                    <ng-container matColumnDef="messageId">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Message Id
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.messageId}} </mat-cell>
+                                    </ng-container>
+                                    <!-- Message Content Column -->
+                                    <ng-container matColumnDef="message">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Message Content
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.message}} </mat-cell>
+                                    </ng-container>
+                                    <!-- Message Status Column -->
+                                    <ng-container matColumnDef="messageStatus">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Message Status
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">
+
+                                            <span *ngIf="'Open' == row.messageStatus" class="badge badge-open">
+                                                {{row.messageStatus}}</span>
+                                            <span *ngIf="'Change' == row.messageStatus" class="badge badge-completed">
+                                                {{row.messageStatus}}</span>
+                                            <span *ngIf="'Queued' == row.messageStatus" class="badge badge-open">
+                                                {{row.messageStatus}}</span>
+                                            <span *ngIf="'Closed' == row.messageStatus" class="badge badge-open">
+                                                {{row.messageStatus}}</span>
+                                            <span *ngIf="'Completed' == row.messageStatus"
+                                                class="badge badge-completed"> {{row.messageStatus}}</span>
+                                            <span *ngIf="'Failure' == row.messageStatus" class="badge badge-error">
+                                                {{row.messageStatus}}</span>
+                                            <span *ngIf="'Error' == row.messageStatus" class="badge badge-error">
+                                                {{row.messageStatus}}</span>
+                                            <span *ngIf="'Acknowledged' == row.messageStatus"
+                                                class="badge badge-completed"> {{row.messageStatus}}</span>
+                                            <span *ngIf="'NotAcknowledged' == row.messageStatus"
+                                                class="badge badge-error"> {{row.messageStatus}}</span>
+                                            <span *ngIf="'OffDuty' == row.messageStatus" class="badge badge-progress">
+                                                Off-Duty</span>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <!-- Subject Column -->
+                                    <ng-container matColumnDef="type">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Message Type
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">
+                                            {{row.type}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Configuration Name Column -->
+                                    <ng-container matColumnDef="configurationName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Configuration Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.configurationName}} </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="action">
+                                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">
+                                            <i *ngIf="row.messageStatus == 'Change'" class="fa fa-check edit-blue"
+                                                title="Acknowledge"
+                                                (click)="updateMessageStatus(row.messageId,'Acknowledged')"></i>
+                                            &nbsp; <i *ngIf="row.messageStatus == 'Change'"
+                                                class="fa fa-close edit-blue" title="Ignore"
+                                                (click)="updateMessageStatus(row.messageId,'NotAcknowledged')"></i>
+                                            &nbsp; <i class="ti ti-trash del-red" title="Delete"
+                                                (click)="deleteMessage(row.messageId)"></i>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                    </mat-row>
+                                </mat-table>
+                                <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                            </div>
+
+                            <div class="col-lg-12 col-xlg-12 col-md-12">
+                                <div class="fresh-table full-color-orange table-responsive ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

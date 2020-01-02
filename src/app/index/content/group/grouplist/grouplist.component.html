@@ -1,0 +1,130 @@
+<app-common [showLoader]="showLoader">
+    </app-common>
+    <div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row page-header-title">
+                <div class="col-md-12">
+                    <div class="col-md-8 col-xs-4">
+                        <h4 class="pull-left page-title">Group</h4>
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <a class="icon-create pull-right" data-toggle="tooltip" routerLink="/index/groups/add" title=" Create Group"><i class="ti ti-layout-media-center createnew"></i></a>
+                    </div>
+                    <div class="col-md-3 col-xs-7 mb2  pull-right">
+                        <div class="inner-addon right-addon mt5">
+                                <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Group Name..." />
+                            <a class="list-search"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <!--<a routerLink="/index/groups/add" *ngIf="userRole != 'User'" class="btn btn-success pull-right m-adjust">
+                                Create Group
+                                </a><br>
+                                <mat-form-field>
+                                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                    <input class="search" matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Enter Group Name">
+                                    </mat-form-field>-->
+                                 <!-- <div class="row">                            
+                                <div class="col-md-3 mb2">
+                                  <div class="inner-addon right-addon mt10"> 
+                                    <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Group Name..." />
+                                    <a class="list-search"><i class="fa fa-search"></i></a>
+                                  </div>
+                                </div>
+                                <a  routerLink="/index/groups/add" class="btn btn-success pull-right m-adjust mt15">
+                                Create Group
+                                </a>
+                            </div> -->
+                                <div class="mat-elevation-z8 example-container table-responsive cust-group">
+                                    <mat-table [dataSource]="dataSource" matSort matSortActive='groupId' matSortDirection='desc' matSortDisableClear>
+                                        <!-- ID Column -->
+                                        <!-- <ng-container matColumnDef="groupId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Group Id
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"> {{row.groupId}} </mat-cell>
+                                        </ng-container> -->
+                                        <!-- Group Name Column -->
+                                        <ng-container matColumnDef="groupName">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Group Name
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" class="pointer" (click)="editGroup(row.groupId)"> 
+                                                <a>{{row.groupName}} </a></mat-cell>                                        </ng-container>
+                                        <!-- Active Column -->
+                                        <ng-container matColumnDef="escalation">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Group Type
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"><span *ngIf="row.escalation"> Escalation</span> 
+                                                <span *ngIf="!row.escalation"> Broadcast</span> 
+                                            </mat-cell>
+                                        </ng-container>
+                                        <!-- Default Destination Column -->
+                                        <ng-container matColumnDef="type">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Transferral Type
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
+                                        </ng-container>
+                                        <!-- Created By Column -->
+                                        <!-- <ng-container matColumnDef="createdByName">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Created By
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"> {{row.createdByName}} </mat-cell>
+                                        </ng-container> -->
+                                        <!-- <ng-container matColumnDef="comments">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Comments
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row"> {{row.comments}} </mat-cell>
+                                            </ng-container>     -->
+                                            <ng-container matColumnDef="active">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                <!--<div>
+                                                    <select class="badge" *ngIf="userRole != 'User'; else userSection" (change)="statusUpdate(row)" [ngClass]="{'badge-success':row.active, 'badge-danger':!row.active}">
+                                                        <option value="true" [selected]="row.active">Active</option>
+                                                        <option value="false" [selected]="!row.active">In Active</option>
+                                                    </select>
+                                                </div>
+                                                <ng-template #userSection>                                    
+                                                                <span *ngIf=row.active class="badge badge-success">{{row.active}}</span>
+                                                                <span *ngIf=!row.active class="badge badge-danger">{{row.active}}</span>                  
+                                                        </ng-template>-->
+                                                  <span *ngIf = row.active ><img alt="user-img" class="" src="assets/images/active.jpg" /></span>
+                                                       <span *ngIf = !row.active ><img alt="user-img" class="" src="assets/images/inactive.jpg" /></span>
+                                                </mat-cell>
+                                             
+                                            </ng-container>
+                                        <ng-container matColumnDef="action">
+                                            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                            <mat-cell *matCellDef="let row">
+                                              <!--   <i class="ti ti-pencil-alt edit-blue" title="Edit"
+                                                    (click)="editGroup(row.groupId)"></i> -->
+                                                &nbsp; <i class="ti ti-trash del-red" title="Delete"
+                                                    (click)="deleteGroup(row.groupId, row.groupName)"></i>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                        </mat-row>
+                                    </mat-table>
+                                    <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                    <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                                </div>
+    
+                                <div class="col-lg-12 col-xlg-12 col-md-12">
+                                    <div class="fresh-table full-color-orange table-responsive ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

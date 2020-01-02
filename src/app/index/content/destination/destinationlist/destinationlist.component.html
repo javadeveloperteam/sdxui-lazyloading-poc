@@ -1,0 +1,138 @@
+<app-common [showLoader]="showLoader">
+</app-common>
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row page-header-title">
+                <div class="col-md-12">
+                    <div class="col-md-8 col-xs-4">
+                        <h4 class="pull-left page-title">Contact</h4>
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <a class="icon-create pull-right" data-toggle="tooltip" routerLink="/index/destinations/add" title="Create Contact"><i class="ti ti-layout-media-center createnew"></i></a>
+                    </div>
+                    <div class="col-md-3 col-xs-7 mb2  pull-right">
+                        <div class="inner-addon right-addon mt5">
+                                <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Contact Name..." />
+                                <a  class="list-search"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <!-- <div class="row">                            
+                                <div class="col-md-3 mb2">
+                                  <div class="inner-addon right-addon mt10"> 
+                                    <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter Contact Name..." />
+                                    <a  class="list-search"><i class="fa fa-search"></i></a>
+                                  </div>
+                                </div>
+                                <a  routerLink="/index/destinations/add" class="btn btn-success pull-right m-adjust mt15">
+                                Create Contact
+                                </a>
+                            </div> -->
+
+                            <div class="mat-elevation-z8 example-container table-responsive">
+                                    <mat-table [dataSource]="dataSource" matSort matSortActive='destinationId' matSortDirection='desc' matSortDisableClear>
+                                    <!-- ID Column -->
+                                    <!-- <ng-container matColumnDef="destinationId">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Contact Id
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.destinationId}} </mat-cell>
+                                    </ng-container> -->
+                                    <!-- Department Name Column -->
+                                    <ng-container matColumnDef="destinationName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row" class="pointer" (click)="editDestination(row.destinationId, row.userId, row.active)"> 
+                                            <a>{{row.destinationName}} </a></mat-cell>
+                                    </ng-container>
+                                    <!-- Active Column -->
+                                    <ng-container matColumnDef="userName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> User Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.userName}} </mat-cell>
+                                    </ng-container>
+                                    <!-- Default Destination Column -->
+                                    <ng-container matColumnDef="type">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Channel Type
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
+                                    </ng-container>
+                                    <!-- Created By Column -->
+                                    <ng-container matColumnDef="emailId">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Email ID
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.toMailId}}
+                                            <!-- <span *ngIf="row.type == 'Email'"></span>{{row.toMailId}}</span> -->
+                                            <!-- <span *ngIf="row.type == 'SMS'">{{row.toNumber}}</span> -->
+                                        </mat-cell>
+                                    </ng-container>
+                                    <!-- Created By Column -->
+                                    <ng-container matColumnDef="toNumber">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile Number
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">{{row.toNumber}} </mat-cell>
+                              </ng-container>
+                              <ng-container matColumnDef="active">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                <!--<div>
+                                    <select class="badge" *ngIf="userRole != 'User'; else userSection" (change)="statusUpdate(row)" [ngClass]="{'badge-success':row.active, 'badge-danger':!row.active}">
+                                        <option value="true" [selected]="row.active">Active</option>
+                                        <option value="false" [selected]="!row.active">In Active</option>
+                                    </select>
+                                </div>
+                                <ng-template #userSection>                                    
+                                                <span *ngIf=row.active class="badge badge-success">{{row.active}}</span>
+                                                <span *ngIf=!row.active class="badge badge-danger">{{row.active}}</span>                  
+                                        </ng-template>-->
+                                  <span *ngIf = row.active ><img alt="user-img" class="" src="assets/images/active.jpg" /></span>
+                                             <span *ngIf = !row.active ><img alt="user-img" class="" src="assets/images/inactive.jpg" /></span>
+                                </mat-cell>
+                             
+                            </ng-container>
+                                    <!-- <ng-container matColumnDef="createdByName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Created By
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.createdByName}} </mat-cell>
+                                    </ng-container> -->
+                                    <!-- <ng-container matColumnDef="comments">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Comments
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.comments}} </mat-cell>
+                                    </ng-container>                                     -->
+                                    <ng-container matColumnDef="action">
+                                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">
+                                         <!--    <i class="ti ti-pencil-alt edit-blue" title="Edit"
+                                                (click)="editDestination(row.destinationId)"></i>&nbsp;  -->
+                                            <i class="ti ti-trash del-red" title="Delete"
+                                                (click)="deleteDestination(row.destinationId, row.destinationName)"></i>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                    </mat-row>
+                                </mat-table>
+                                <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                  <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                               
+                            </div>
+
+                            <div class="col-lg-12 col-xlg-12 col-md-12">
+                                <div class="fresh-table full-color-orange table-responsive ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

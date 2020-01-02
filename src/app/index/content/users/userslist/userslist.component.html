@@ -1,0 +1,274 @@
+<app-common [showLoader]="showLoader">
+</app-common>
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+            <div class="row page-header-title">
+                <div class="col-md-12">
+                    <div class="col-md-8 col-xs-4">
+                        <h4 class="pull-left page-title">Users</h4>
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <a class="icon-create pull-right" data-toggle="tooltip" routerLink="/index/users/add" title="Create User"><i class="ti ti-layout-media-center createnew"></i></a>
+                    </div>
+                    <div class="col-md-3 col-xs-7 mb2  pull-right">
+                        <div class="inner-addon right-addon mt5">
+                                <input type="text" id="searchElement" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="User Name..." />
+                                <a  class="list-search"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <!--<a  (click)="addUser()" class="btn btn-success pull-right m-adjust">
+                             Create User
+                            </a><br>
+                            <mat-form-field>
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                <input class="search" matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Enter User Name">
+                                </mat-form-field>-->
+                          <!-- <div class="row">  
+                              <div class="col-md-3 mb2">
+                                <div class="inner-addon right-addon mt10">
+                                  <input type="text" (keyup)="applyFilter($event.target.value)"  class="form-control LSpadding" placeholder="Enter User Name..." />
+                                  <a  class="list-search"><i class="fa fa-search"></i></a>
+                                </div>
+                              </div>
+                              <a routerLink="/index/users/add" class="btn btn-success pull-right m-adjust mt15">
+                              Create User
+                              </a>
+                            </div> -->
+                            <div class="mat-elevation-z8 example-container table-responsive">
+                                    <mat-table [dataSource]="dataSource" matSort matSortActive='userId' matSortDirection='desc' matSortDisableClear>
+                                      <!-- ID Column -->
+                                      <ng-container matColumnDef="userId">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> User Id </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.userId}} </mat-cell>
+                                      </ng-container>
+                                         <!-- user name Column -->
+                                         <ng-container matColumnDef="userName">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" class="pointer" (click)="editUser(row)"> 
+                                                <a>{{row.userName}} </a></mat-cell>       
+                                      </ng-container>
+                                      <ng-container matColumnDef="employeeId">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Id </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.employeeId}} </mat-cell>
+                                      </ng-container>
+                                   
+                                      <!-- Type Column -->
+                                      <ng-container matColumnDef="emailId">
+                                          <mat-header-cell *matHeaderCellDef mat-sort-header> Email Id </mat-header-cell>
+                                          <mat-cell *matCellDef="let row"> {{row.emailId}} </mat-cell>
+                                        </ng-container>
+                                      <!-- From Id Column -->
+                                      <ng-container matColumnDef="mobileNo">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile Number </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.mobileNo}} </mat-cell>
+                                      </ng-container>
+                                      <!-- <ng-container matColumnDef="comments">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Comments
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row"> {{row.comments}} </mat-cell>
+                                        </ng-container>     -->
+                                        <ng-container matColumnDef="active">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row">
+                                            <!--<div>
+                                                <select class="badge" (change)="statusUpdate(row)" [ngClass]="{'badge-success':row.active, 'badge-danger':!row.active}">
+                                                    <option value="true" [selected]="row.active">Active</option>
+                                                    <option value="false" [selected]="!row.active">In Active</option>
+                                                </select>
+                                            </div>   
+                                              <span *ngIf = row.active class="badge label-success-custom">Active</span>
+                                             <span *ngIf = !row.active class="badge label-danger">In Active</span>	-->
+                                              <span *ngIf = row.active><img alt="user-img" class="" src="assets/images/active.jpg"></span>
+                                              <span *ngIf = !row.active><img alt="user-img" class="" src="assets/images/inactive.jpg"></span>	
+                                            </mat-cell>
+                                         
+                                        </ng-container>
+                                      <ng-container matColumnDef="action">
+                                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">    
+                                         <!--  <i class="ti ti-pencil-alt edit-blue" title="Edit" (click)="editUser(row)"></i> &nbsp;  -->
+                                           <i class="ti ti-trash del-red" title="Delete" (click)="deleteUser(row)"></i>
+                                        </mat-cell>
+                                      </ng-container>                
+                                       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                      <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                    </mat-row>
+                                  </mat-table>
+                                  <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No Records Found</div>
+                                  <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>No Matching Records Found</div>
+                                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                                </div>             
+
+                            <div class="col-lg-12 col-xlg-12 col-md-12">
+                                <div class="fresh-table full-color-orange table-responsive ">
+                                   
+                                    <!-- <table datatable class="table custtable table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>User ID</th>
+                                                <th>Email ID</th>
+                                                <th>Mobile No</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>5536</td>
+                                                <td>ssadsd@dsdss.com</td>
+                                                <td>9632587</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-danger">In Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-danger">In Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>5236</td>
+                                                <td>Test@gmail.com</td>
+                                                <td>1236540</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                                <td><i class="ti ti-pencil-alt edit-blue"></i> &nbsp; <i class="ti ti-trash del-red"></i></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table> -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <div class="modal fade" #modal1  data-backdrop="static" data-backdrop="true">
+    <div class="modal-dialog">
+    <div class="modal-content popupSize">
+    <div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-envelope-o"></i>&nbsp; Confirm Message
+    </h4>
+    <div class="col cls2">
+    <button class="close" data-dismiss="modal" type="button">
+    </button>
+    </div>
+    </div>
+    <div class="hr-nova-d">
+    <div class=" pd-top mt-2">
+    <p style="padding:10px">You have Destination Data.So please delete it </p>
+    </div>
+    
+    <div class="modal-footer ">
+    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div> -->
+
+
+
+
+
+    <!-- <div class="modal fade" #modal2  data-backdrop="static" data-backdrop="true">
+        <div class="modal-dialog">
+        <div class="modal-content popupSize">
+        <div class="modal-header">
+        <h4 class="modal-title"><i class="fa fa-envelope-o"></i>&nbsp; Confirm Message
+        </h4>
+        <div class="col cls2">
+        <button class="close" data-dismiss="modal" type="button"> x
+        </button>
+        </div>
+        </div>
+        <div class="hr-nova-d">
+        <div class=" pd-top mt-2">
+        <p style="padding:10px">Are you sure? you want to delete the user?</p>
+        </div>
+        
+        <div class="modal-footer ">
+        <button type="button" class="btn btn-outline-success" (click)="yesPopup()">Yes</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" >No</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div> -->

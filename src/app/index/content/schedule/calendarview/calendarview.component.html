@@ -1,0 +1,169 @@
+<app-common [showLoader]="showLoader"></app-common>
+<div class="content-page">
+    <div class="content">
+        <div class="container">
+          <div class="row page-header-title">
+            <div class="col-md-12">
+                <div class="col-md-10 col-xs-4">
+                    <h4 class="pull-left page-title">Calendar</h4>
+                </div>
+               
+                <div class="col-md-1 col-xs-1 pull-right">
+                    <div class="col-md-1 col-xs-1">
+                        <a class="icon-create pull-right" routerLink="/index/schedules/add"  data-toggle="tooltip" title="Create Schedule"><i class="ti ti-layout-media-center createnew"></i></a>
+                      </div>
+                    <a class="icon-create pull-right" routerLink="/index/schedules"  data-toggle="tooltip" title="Back"><span class="material-icons createnew">keyboard_backspace</span></a>
+                  </div>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="col-lg-12 col-xlg-12 col-md-12">
+                                <!-- <div class="row text-right">
+                                    <a routerLink="/index/schedules" class="btn btn-success">
+                                        Back
+                                    </a> &nbsp; &nbsp;
+                                    <a routerLink="/index/schedules/add" *ngIf="userRole != 'User'" class="btn btn-success">
+                                         Create Schedule
+                                    </a>
+                                </div> -->
+
+                                <div class="m-portlet">
+                                    <div class="m-portlet__head">
+                                        <div class="m-portlet__head-caption">
+                                            <!-- <div class="m-portlet__head-title">
+                                                <span class="m-portlet__head-icon m--hide">
+                                                    <i class="la la-gear"></i>
+                                                </span>
+                                                <h3 class="m-portlet__head-text">
+                                                   Calendar
+                                                </h3>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <br> <br>
+                                    <div class="row text-center">
+                                      <div class="col-md-4">
+                                        <div class="btn-group">
+                                          <div
+                                            class="btn btn-primary"
+                                            mwlCalendarPreviousView
+                                            [view]="view"
+                                            [(viewDate)]="viewDate"
+                                            (viewDateChange)="closeOpenMonthViewDay()"
+                                          >
+                                            Previous
+                                          </div>
+                                          <div
+                                            class="btn btn-default1"
+                                            mwlCalendarToday
+                                            [(viewDate)]="viewDate"
+                                          >
+                                            Today
+                                          </div>
+                                          <div
+                                            class="btn btn-primary"
+                                            mwlCalendarNextView
+                                            [view]="view"
+                                            [(viewDate)]="viewDate"
+                                            (viewDateChange)="closeOpenMonthViewDay()"
+                                          >
+                                            Next
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="btn-group">
+                                          <div
+                                            class="btn btn-success"
+                                            (click)="setView(CalendarView.Month)"
+                                            [class.active]="view === CalendarView.Month"
+                                          >
+                                            Month
+                                          </div>
+                                          <div
+                                            class="btn btn-success"
+                                            (click)="setView(CalendarView.Week)"
+                                            [class.active]="view === CalendarView.Week"
+                                          >
+                                            Week
+                                          </div>
+                                          <div
+                                            class="btn btn-success"
+                                            (click)="setView(CalendarView.Day)"
+                                            [class.active]="view === CalendarView.Day"
+                                          >
+                                            Day
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <br />
+                                    <div [ngSwitch]="view">
+                                      <mwl-calendar-month-view
+                                        *ngSwitchCase="CalendarView.Month"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        [activeDayIsOpen]="false"
+                                        (dayClicked)="dayClicked($event.day)"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)"
+                                      >
+                                      </mwl-calendar-month-view>
+                                      <mwl-calendar-week-view
+                                        *ngSwitchCase="CalendarView.Week"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)"
+                                      >
+                                      </mwl-calendar-week-view>
+                                      <mwl-calendar-day-view
+                                        *ngSwitchCase="CalendarView.Day"
+                                        [viewDate]="viewDate"
+                                        [events]="events"
+                                        [refresh]="refresh"
+                                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)"
+                                      >
+                                      </mwl-calendar-day-view>
+                                    </div>
+
+
+
+
+                               <!--  <form class="form-horizontal " role="form">
+                                    <div class="row">
+                                        <br>
+                                        <div class="col-lg-2 col-md-3">
+                                            <h4>Created Events</h4>
+                                            <form method="post" id="add_event_form"> <input type="text" class="form-control new-event-form" placeholder="Add new event..." /></form>
+                                            <div id='external-events'>
+                                                <h4 class="m-b-15">Draggable Events</h4>
+                                                <div class='fc-event'>My Event 1</div>
+                                                <div class='fc-event'>My Event 2</div>
+                                                <div class='fc-event'>My Event 3</div>
+                                                <div class='fc-event'>My Event 4</div>
+                                                <div class='fc-event'>My Event 5</div>
+                                            </div>
+                                            <div class="checkbox checkbox-custom"> <input id="drop-remove" type="checkbox"> <label for="drop-remove"> Remove after drop </label></div>
+                                        </div>
+                                        <div id='calendar' class="col-md-9 col-lg-10"></div>
+                                    </div>
+                                </form> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
