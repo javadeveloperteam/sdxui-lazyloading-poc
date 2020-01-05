@@ -89,7 +89,7 @@ import { DayCalenderPopUpComponent } from './index/content/schedule/day-calender
 import { AppEventPopupComponent } from './index/content/dialog/app-event-popup/app-event-popup.component';
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 import { UserGroupDialogComponent } from './index/content/dialog/user-group-dialog/user-group-dialog.component';
-import { SplasherModule } from './splasher/splasher.module';
+import { SplasherModule } from './index/splasher/splasher.module';
 
 
 @NgModule({

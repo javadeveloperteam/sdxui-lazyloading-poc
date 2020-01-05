@@ -1,0 +1,291 @@
+<!-- <app-common [showLoader]="showLoader">
+</app-common> -->
+<div class="content-page">
+   <div class="content">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="page-header-title">
+                  <h4 class="pull-left page-title">Notification Status</h4>
+                  <!-- <ol class="breadcrumb pull-right">
+                          <li><a href="pages_index">Dashboard</a></li>
+                          <li class="active">Users</li>
+                          <li class="active">Manage Users</li>
+                          </ol>-->
+                  <div class="clearfix"></div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="panel panel-primary">
+                  <div class="panel-body">
+                     <div class="col-lg-12 col-xlg-12 col-md-12" style="margin-bottom: -20px;">
+                        <form class="form-horizontal">
+                           <div class="row">
+                              <div class="col-md-2">
+                                 <div class="form-group">
+                                    <label class="control-label">
+                                       Column
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="ti ti-layout-tab-window"
+                                             aria-hidden="true"></i></span>
+                                       <select class="form-control form-control-line" id="filterColumn">
+                                          <option value='' disabled>--Select--</option>
+                                          <option value="messageStatus">Status</option>
+                                          <option value="destinationName">Destination</option>
+                                          <option value="groupName">Group</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-2">
+                                 <div class="form-group">
+                                    <label class="control-label">
+                                       Value
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="ion ion-edit"
+                                             aria-hidden="true"></i></span>
+                                       <input id="filterValue" aria-describedby="addon-right addon-left" type="text"
+                                          placeholder="Value" class="form-control">
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- <div class="col-md-2">
+                                 <div class="form-group">
+                                    <label class="control-label">
+                                       Message
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="ion ion-android-textsms"
+                                             aria-hidden="true"></i></span>
+                                       <select class="form-control form-control-line">
+                                          <option>--Select--</option>
+                                          <option>All Messages</option>
+                                          <option>User Messages</option>
+                                          <option>Sent Messages</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div> -->
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label class="control-label">
+                                       Quick Filters
+                                    </label>
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="ti ti-exchange-vertical"
+                                             aria-hidden="true"></i></span>
+                                       <select class="form-control form-control-line" id="dateFilter" (change)="filterChange($event.target.value)">
+                                          <option value='' disabled>--Select--</option>
+                                          <option value="TODAY">Today</option>
+                                          <option value="LAST_ONE_WEEK">Last One Week</option>
+                                          <option value="LAST_ONE_MONTH">Last One Month</option>
+                                          <option value="LAST_THREE_MONTH">Last three Month</option>
+                                          <option value="CUSTOM">Custom</option>                                 
+                                          <!-- <option value="LAST_ONE_YEAR">Last One Year</option> -->
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-2">
+                                 <div class="form-group">      
+                                       <label class="control-label" style="visibility:hidden">
+                                             Start Date
+                                          </label> 
+                                          <div class="input-group">                            
+                                     <mat-form-field style="width:150px;">
+                                         <input matInput id="startDate" [matDatepicker]="myDatepicker" (dateInput)="startDateChange($event.value)"
+                                             placeholder="Start Date" [max]="todayDate" [disabled]= "disableDate">
+                                         <mat-datepicker-toggle matSuffix [for]="myDatepicker">
+                                         </mat-datepicker-toggle>
+                                         <mat-datepicker #myDatepicker></mat-datepicker>
+                                     </mat-form-field>          
+                                    </div>                           
+                                 </div>
+                             </div>    
+                             <div class="col-md-2">
+                              <div class="form-group">  
+                                    <label class="control-label" style="visibility:hidden">
+                                          End Date
+                                       </label> 
+                                       <div class="input-group">                                      
+                                  <mat-form-field  style="width:150px;">
+                                      <input matInput id="endDate" [matDatepicker]="myDatepicker1"
+                                          placeholder="End Date" [max]="maxEndDate" [min]="minEndDate" [disabled]= "disableDate">
+                                      <mat-datepicker-toggle matSuffix [for]="myDatepicker1" >
+                                      </mat-datepicker-toggle>
+                                      <mat-datepicker #myDatepicker1></mat-datepicker>
+                                  </mat-form-field>
+                                  </div>                               
+                              </div>
+                          </div>                            
+                           </div>
+                        </form>
+                     </div>
+                     <div class="col-lg-12 col-xlg-12 col-md-12" style="margin-bottom: 20px;">
+                     <div class="col-md-4 pull-right">
+                        <div class="form-group">
+                           <label class="control-label" style="visibility:hidden">
+                              Sort on
+                           </label>
+                           <div class="input-group">
+                              <button type="button "  style="padding: 7px 14px;" class="btn btn-primary waves-effect waves-light "
+                                 (click)="applyFilter();">Search</button>&nbsp;
+                              <button type="button " class="btn btn-default waves-effect waves-light "
+                                 (click)="resetFilter()">Reset</button>&nbsp;
+                              <button type="button " class="btn btn-default1 waves-effect waves-light "
+                                 (click)="resetFilter()" title="Refresh"><i class="ti ti-reload"
+                                    aria-hidden="true"></i></button>
+                           </div>
+                        </div>
+                     </div>
+                     </div>
+
+                     <div class="col-lg-12 col-xlg-12 col-md-12">
+                        <div class="row">
+                           <div class="col-sm-12">                            
+                                    <div class="mat-elevation-z8 example-container table-responsive  custom-colm">
+                                       <mat-table [dataSource]="dataSource" matSort matSortActive='messageId'
+                                          matSortDirection='desc' matSortDisableClear>
+                                          <!-- ID Column -->
+                                          <!-- <ng-container matColumnDef="messageId">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header>Message Id
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row"> {{row.messageId}} </mat-cell>
+                                          </ng-container> -->
+                                          <!-- Message Content Column -->
+                                          <ng-container matColumnDef="message">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> Message Content
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row"> {{row.message}} </mat-cell>
+                                          </ng-container>
+                                          <!-- Message Status Column -->
+                                          <ng-container matColumnDef="messageStatus">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> Message Status
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row">
+
+                                                <span *ngIf="'Open' == row.messageStatus" class="badge badge-open">
+                                                   {{row.messageStatus}}</span>
+                                                <span *ngIf="'Change' == row.messageStatus"
+                                                   class="badge badge-completed" [ngbPopover]="popContent" [autoClose]="'outside'"
+                                                   triggers="manual" (mouseenter)="openPopOver(p1, row.messageId)" #p1="ngbPopover">
+                                                   {{row.messageStatus}}</span>
+                                                <span *ngIf="'Queued' == row.messageStatus" class="badge badge-open">
+                                                   {{row.messageStatus}}</span>
+                                                <span *ngIf="'Closed' == row.messageStatus" class="badge badge-open">
+                                                   {{row.messageStatus}}</span>
+                                                <span *ngIf="'Completed' == row.messageStatus"
+                                                   class="badge badge-completed"> {{row.messageStatus}}</span>
+                                                <span *ngIf="'Failure' == row.messageStatus" class="badge badge-error">
+                                                   {{row.messageStatus}}</span>
+                                                <span *ngIf="'Error' == row.messageStatus" class="badge badge-error">
+                                                   {{row.messageStatus}}</span>
+                                                <span *ngIf="'Acknowledged' == row.messageStatus"
+                                                   class="badge badge-completed"> {{row.messageStatus}}</span>
+                                                <span *ngIf="'NotAcknowledged' == row.messageStatus"
+                                                   class="badge badge-error"> {{row.messageStatus}}</span>
+                                                <span *ngIf="'OffDuty' == row.messageStatus"
+                                                   class="badge badge-progress">
+                                                   Off-Duty</span>
+                                             </mat-cell>
+                                          </ng-container>
+                                          <!-- Subject Column -->
+                                          <ng-container matColumnDef="type">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> Message Type
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row">
+                                                {{row.type}}
+                                             </mat-cell>
+                                          </ng-container>
+                                          <!-- Subject Column -->
+                                          <ng-container matColumnDef="destinationName">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> Contact
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row">
+                                                {{row.destinationName}}
+                                             </mat-cell>
+                                          </ng-container>
+                                          <!-- Subject Column -->
+                                          <ng-container matColumnDef="userName">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> User Name
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row">
+                                                {{row.userName}}
+                                             </mat-cell>
+                                          </ng-container>
+                                          <ng-container matColumnDef="contactName">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> Contact 
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row">
+                                                <span *ngIf="row.emailId != null">
+                                                   {{row.emailId}}</span>
+                                                   <span *ngIf="row.mobileNumber != 'null'" >
+                                                      {{row.mobileNumber}}</span>
+                                             </mat-cell>
+                                          </ng-container>
+
+                                          <!-- Subject Column -->
+                                          <ng-container matColumnDef="groupName">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> Group Name
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row">
+                                                {{row.groupName}}
+                                             </mat-cell>
+                                          </ng-container>
+                                          <!-- Configuration Name Column -->
+                                          <ng-container matColumnDef="createdOn">
+                                             <mat-header-cell *matHeaderCellDef mat-sort-header> Message Date
+                                             </mat-header-cell>
+                                             <mat-cell *matCellDef="let row"> {{ row.createdOn | date:'medium'}}
+                                             </mat-cell>
+                                          </ng-container>
+                                          <ng-container matColumnDef="action">
+                                             <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                             <mat-cell *matCellDef="let row">
+                                                <i *ngIf="row.messageStatus == 'Change'" class="fa fa-check edit-blue"
+                                                   title="Acknowledge"
+                                                   (click)="updateMessageStatus(row.messageId,'Acknowledged')"></i>
+                                                &nbsp; <i *ngIf="row.messageStatus == 'Change'"
+                                                   class="fa fa-close edit-blue" title="Ignore"
+                                                   (click)="updateMessageStatus(row.messageId,'NotAcknowledged')"></i>
+                                                &nbsp; <i class="ti ti-trash del-red" title="Delete"
+                                                   (click)="deleteMessage(row.messageId)"></i>
+                                             </mat-cell>
+                                          </ng-container>
+                                          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                          <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                          </mat-row>
+                                       </mat-table>
+                                       <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No
+                                          Records Found</div>
+                                       <div class='table-grid-msg'
+                                          *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>
+                                          No Matching Records Found</div>
+                                          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+                                    </div>                                  
+                                
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<ng-template #popContent let-messageId="messageId">
+   <div class="container">
+      <div>
+            <input type='checkbox' (change)="updateMessageStatus(messageId,'Acknowledged')">Acknowledge
+      </div>
+      <div>
+            <input type='checkbox' (change)="updateMessageStatus(messageId,'NotAcknowledged')">Not Acknowledge
+      </div>
+   </div>
+</ng-template>

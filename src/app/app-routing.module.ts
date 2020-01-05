@@ -103,7 +103,7 @@ const routes: Routes = [
       },
       {
         path: 'splasher',
-        loadChildren : './splasher/splasher.module#SplasherModule',
+        loadChildren : './index/splasher/splasher.module#SplasherModule',
       },
       {
         path: 'users',

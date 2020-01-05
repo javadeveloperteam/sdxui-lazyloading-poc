@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NotificationstatusWMSComponent } from './notificationstatus-wms/notificationstatus-wms.component';
 import { CustomDatePipe } from './notificationstatus-wms/date-pipe';
 import { SplasherRouting } from './splasher-routing.module';
-import { CustomMaterialModule } from '../core/material.module';
+import { CustomMaterialModule } from '../../core/material.module';
 /* import { CommonComponent } from './../common/common.component'; */
 
 
