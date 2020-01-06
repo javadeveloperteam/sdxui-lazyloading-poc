@@ -39,7 +39,7 @@ import { DepartmentComponent } from './index/content/department/department.compo
 import { DepartmentlistComponent } from './index/content/department/departmentlist/departmentlist.component';
 import { DestinationComponent } from './index/content/destination/destination.component';
 import { DestinationlistComponent } from './index/content/destination/destinationlist/destinationlist.component';
-import { CommonComponent } from './common/common.component';
+// import { CommonComponent } from './common/common.component';
 import { GroupComponent } from './index/content/group/group.component';
 import { GrouplistComponent } from './index/content/group/grouplist/grouplist.component';
 import { GroupmemberComponent } from './index/content/group/groupmember/groupmember.component';
@@ -57,7 +57,7 @@ import { UserDeptPopupComponent } from './index/content/dialog/user-dept-popup/u
 import { RuleDialogComponent } from './index/content/dialog/rule-dialog/rule-dialog.component';
 import { GroupDestDialogComponent } from './index/content/dialog/group-dest-dialog/group-dest-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { EventstatusComponent } from './index/content/SDXintelligence/eventstatus/eventstatus.component';
+
 import { LocationComponent } from './index/content/SDXintelligence/location/location.component';
 import { LocationlistComponent } from './index/content/SDXintelligence/location/locationlist/locationlist.component';
 import { AssetComponent } from './index/content/SDXintelligence/asset/asset.component';
@@ -79,7 +79,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LocationdialogComponent } from './index/content/SDXintelligence/asset/dialogbox/locationdialog/locationdialog.component';
 import { ContactDialogComponent } from './index/content/SDXintelligence/asset/dialogbox/contact-dialog/contact-dialog.component';
 import { DepartmentDialogComponent } from './index/content/SDXintelligence/asset/dialogbox/department-dialog/department-dialog.component';
-import { EventRecordViewComponent } from './index/content/SDXintelligence/eventstatus/event-record-view/event-record-view.component';
+// import { EventRecordViewComponent } from './index/content/SDXintelligence/eventstatus/event-record-view/event-record-view.component';
 import { AlertPopupComponent } from './index/content/users/modal/alert-popup/alert-popup.component';
 import { CalendarviewComponent } from './index/content/schedule/calendarview/calendarview.component';
 import { CalendarPopupComponent } from './index/content/schedule/calendar-popup/calendar-popup.component';
@@ -90,6 +90,7 @@ import { AppEventPopupComponent } from './index/content/dialog/app-event-popup/a
 import { AcknowledgeComponent } from './acknowledge/acknowledge.component';
 import { UserGroupDialogComponent } from './index/content/dialog/user-group-dialog/user-group-dialog.component';
 import { SplasherModule } from './index/splasher/splasher.module';
+import { Common1Module } from './common/common1.module';
 
 
 @NgModule({
@@ -117,7 +118,8 @@ import { SplasherModule } from './index/splasher/splasher.module';
     ConfigurationComponent,
     ConfigurationlistComponent,
     DepartmentComponent,
-    DepartmentlistComponent, CommonComponent,
+    DepartmentlistComponent, 
+    // CommonComponent,
     DestinationComponent,
     DestinationlistComponent,
     GroupComponent,
@@ -133,7 +135,7 @@ import { SplasherModule } from './index/splasher/splasher.module';
     GroupDestDialogComponent,
     AssetDialogComponent,
     RuleDialogComponent,
-    EventstatusComponent,
+  
     LocationComponent,
     LocationlistComponent,
     AssetComponent,
@@ -152,7 +154,7 @@ import { SplasherModule } from './index/splasher/splasher.module';
     EventvariableComponent,
     EventtypeComponent, LocationdialogComponent,
     DepartmentDialogComponent,
-    EventRecordViewComponent,
+    // EventRecordViewComponent,
     ContactDialogComponent,
     AlertPopupComponent,
     CalendarPopupComponent,
@@ -181,6 +183,7 @@ import { SplasherModule } from './index/splasher/splasher.module';
     CommonModule,
     FormsModule,
     SplasherModule,
+    Common1Module,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -196,6 +199,8 @@ import { SplasherModule } from './index/splasher/splasher.module';
   entryComponents: [UserDialogComponent, DestinationDialogComponent, GroupDialogComponent, AssetDialogComponent,
     GroupDestDialogComponent, RuleDialogComponent, LocationdialogComponent,
     EventTypeDialogComponent, ContactDialogComponent, DepartmentDialogComponent, AppEventPopupComponent,
-    AlertPopupComponent, EventRecordViewComponent, CalendarPopupComponent, DayCalenderPopUpComponent, UserDeptPopupComponent, UserGroupDialogComponent]
+    AlertPopupComponent, 
+    // EventRecordViewComponent,
+     CalendarPopupComponent, DayCalenderPopUpComponent, UserDeptPopupComponent, UserGroupDialogComponent]
 })
 export class AppModule { }

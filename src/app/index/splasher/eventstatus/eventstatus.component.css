@@ -1,0 +1,19 @@
+mat-header-cell {
+  display:flex;
+  justify-content: center;
+ }
+mat-cell{
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.search-form-group{
+  padding-top: 12%;
+}
+
+
+mat-cell:last-of-type{
+  padding: 0px;
+}
+

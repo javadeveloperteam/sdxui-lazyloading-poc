@@ -29,7 +29,7 @@ import { NotificationstatusComponent } from './index/content/notificationstatus/
 import { ScheduleComponent } from './index/content/schedule/schedule.component';
 import { SchedulelistComponent } from './index/content/schedule/schedulelist/schedulelist.component';
 import { CalendarviewComponent } from './index/content/schedule/calendarview/calendarview.component';
-import { EventstatusComponent } from './index/content/SDXintelligence/eventstatus/eventstatus.component';
+// import { EventstatusComponent } from './index/content/SDXintelligence/eventstatus/eventstatus.component';
 import { LocationComponent } from './index/content/SDXintelligence/location/location.component';
 import { LocationlistComponent } from './index/content/SDXintelligence/location/locationlist/locationlist.component';
 import { AssetComponent } from './index/content/SDXintelligence/asset/asset.component';
@@ -184,11 +184,11 @@ const routes: Routes = [
               path: 'schedules/:page',
               component: ScheduleComponent,
               canActivate: [AuthGuard]},
-          {
-            path: 'sdxintelligence/eventstatus',
-            component: EventstatusComponent,
-            canActivate: [AuthGuard]
-          },
+          // {
+          //   path: 'sdxintelligence/eventstatus',
+          //   component: EventstatusComponent,
+          //   canActivate: [AuthGuard]
+          // },
           {
             path: 'sdxintelligence/locations/:page',
             component: LocationComponent,

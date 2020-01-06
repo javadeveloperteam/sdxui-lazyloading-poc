@@ -1,0 +1,193 @@
+<app-common [showLoader]="showLoader">
+</app-common>
+<div class="content-page">
+        <div class="content">
+           <div class="container">
+              <div class="row">
+                 <div class="col-sm-12">
+                    <div class="page-header-title">
+                       <h4 class="pull-left page-title">Event Status</h4>
+                       <div class="clearfix"></div>
+                    </div>
+                 </div>
+              </div>
+              <div class="row">
+                 <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                       <div class="panel-body">
+                          <div class="col-lg-12 col-xlg-12 col-md-12">
+                             <form class="form-horizontal" [formGroup]="searchForm" (ngSubmit)="search()" role="searchForm">
+                                <div class="row">
+                                   <div class="col-md-2">
+                                      <div class="form-group">
+                                         <label class="control-label">
+                                         Column    
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="ti ti-layout-tab-window" aria-hidden="true"></i></span>
+                                            <select class="form-control form-control-line" id="filterColumn"  (change)="onChange($event)">
+                                               <option value='' disabled>--Select--</option>
+                                               <option value="applicationName">Application</option>
+                                               <option value="eventName">Event</option>
+                                               <option value="assetName">Asset</option>                                              
+                                               <option value="eventStatus">Status</option>
+                                            </select>
+                                         </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-2">
+                                      <div class="form-group">
+                                         <label class="control-label">
+                                         Value
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="ion ion-edit" aria-hidden="true"></i></span>
+                                            <input aria-describedby="addon-right addon-left" type="text" placeholder="Value"  id="filterValue" class="form-control">                                                        
+                                         </div>                                       
+                                      </div>
+                                   </div>                                 
+                                   <div class="col-md-3">
+                                      <div class="form-group">
+                                         <label class="control-label">
+                                         Quick Filters
+                                         </label>
+                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="ti ti-exchange-vertical" aria-hidden="true"></i></span>
+                                            <select class="form-control form-control-line" id="dateFilter" (change)="onQuickFilterChange($event.target.value)">
+                                             <option value='' disabled>--Select--</option>
+                                             <option value="TODAY">Today</option>
+                                             <option value="LAST_ONE_WEEK">Last One Week</option>
+                                             <option value="LAST_ONE_MONTH">Last One Month</option>
+                                             <option value="LAST_THREE_MONTH">Last three Month</option>
+                                             <option value="CUSTOM">Custom</option>        
+                                            </select>
+                                         </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-2">
+                                    <div class="form-group">      
+                                          <label class="control-label" style="visibility:hidden">
+                                                Start Date
+                                             </label> 
+                                             <div class="input-group">                            
+                                        <mat-form-field style="width:150px;">
+                                            <input matInput id="startDate" [matDatepicker]="myDatepicker" (dateInput)="startDateChange($event.value)"
+                                                placeholder="Start Date" [max]="todayDate" [disabled]= "disableDate">
+                                            <mat-datepicker-toggle matSuffix [for]="myDatepicker">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #myDatepicker></mat-datepicker>
+                                        </mat-form-field>          
+                                       </div>                           
+                                    </div>
+                                </div>    
+                                <div class="col-md-2">
+                                 <div class="form-group">  
+                                       <label class="control-label" style="visibility:hidden">
+                                             End Date
+                                          </label> 
+                                          <div class="input-group">                                      
+                                     <mat-form-field  style="width:150px;">
+                                         <input matInput id="endDate" [matDatepicker]="myDatepicker1"
+                                             placeholder="End Date" [max]="maxEndDate" [min]="minEndDate" [disabled]= "disableDate">
+                                         <mat-datepicker-toggle matSuffix [for]="myDatepicker1" >
+                                         </mat-datepicker-toggle>
+                                         <mat-datepicker #myDatepicker1></mat-datepicker>
+                                     </mat-form-field>
+                                     </div>                               
+                                 </div>
+                             </div>                   
+
+
+                                   <!-- <div class="col-md-3">
+                                      <div class="form-group">                                        
+                                         <div class="input-group search-form-group">
+                                            <button type="submit"  style="padding: 7px 14px;" class="btn btn-primary waves-effect waves-light ">Search</button>&nbsp;
+                                            <button type="button" class="btn btn-default waves-effect waves-light " (click)="reset()">Reset</button>&nbsp; 
+                                            <button type="button" class="btn btn-default1 waves-effect waves-light " (click)="reset()"><i class="ti ti-reload" aria-hidden="true"></i></button>                                                    
+                                         </div>
+                                      </div>
+                                   </div> -->
+
+            
+                                </div>
+                             </form>
+                          </div>  
+
+                          <div class="col-lg-12 col-xlg-12 col-md-12" style="margin-bottom: 20px;">
+                           <div class="col-md-4 pull-right">
+                              <div class="form-group">
+                                 <div class="input-group">
+                                    <button type="button "  style="padding: 7px 14px;" class="btn btn-primary waves-effect waves-light "
+                                       (click)="search();">Search</button>&nbsp;
+                                    <button type="button " class="btn btn-default waves-effect waves-light "
+                                       (click)="reset()">Reset</button>&nbsp;
+                                       <button type="button " class="btn btn-default1 waves-effect waves-light "
+                                       (click)="reset()" title="Refresh"><i class="ti ti-reload"
+                                          aria-hidden="true"></i></button>
+   
+                                 </div>
+                              </div>
+                           </div>
+                           </div>
+
+                          <div class="col-lg-12 col-xlg-12 col-md-12">
+                           <div class="mat-elevation-z8 example-container table-responsive custom-colm">
+                              <mat-table id="event-tab-table" [dataSource]="dataSource" matSort matSortActive='createdOn' matSortDirection='desc' matSortDisableClear>
+                                
+                                <!-- <ng-container matColumnDef="eventId">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Event ID </mat-header-cell>
+                                  <mat-cell class="mat-trans-id-cell" *matCellDef="let row"> {{row.eventId}} </mat-cell>
+                                </ng-container> -->
+                               
+                                <ng-container matColumnDef="eventName">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Event </mat-header-cell>
+                                  <mat-cell *matCellDef="let row"> {{row.eventName}} </mat-cell>
+                                </ng-container>
+                                
+                                <ng-container matColumnDef="applicationName">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Application </mat-header-cell>
+                                  <mat-cell *matCellDef="let row">{{row.applicationName}}                            
+                                  </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="assetName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Asset </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.assetName}} </mat-cell>
+                                  </ng-container>
+                                
+                                <ng-container matColumnDef="createdOn">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Occured </mat-header-cell>
+                                  <mat-cell *matCellDef="let row"> {{row.createdOn | date:'medium'}}  </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="eventStatus">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                                  <mat-cell *matCellDef="let row"> {{row.eventStatus}}                                   
+                                  </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="info">
+                                    <mat-header-cell *matHeaderCellDef> Info </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <i class="ti ti-info-alt" (click)="viewEventRecord(row)"></i>                                  
+                                    </mat-cell>
+                                  </ng-container>
+                               
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                 </mat-row>
+                               
+                            </mat-table>
+                            <div class='table-grid-msg' *ngIf='dataSource && dataSource.data.length === 0'>No
+                              Records Found</div>
+                           <div class='table-grid-msg'
+                              *ngIf='dataSource && dataSource.data.length != 0 && dataSource.filteredData.length === 0'>
+                              No Matching Records Found</div>
+                              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                          </div>             
+
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
